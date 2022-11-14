@@ -1,7 +1,7 @@
 //Epic posts get epic rewards. Page to hold arcived posts.
 import React, { useEffect, useState } from "react";
-import PostSkeleton from "../components/PostSkeleton";
-import PostFrame from "../components/PostFrame";
+import PostSkeleton from "../components/Posts/PostSkeleton";
+import PostFrame from "../components/Posts/PostFrame";
 
 const Archive = () => {
 

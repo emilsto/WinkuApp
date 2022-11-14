@@ -4,10 +4,11 @@ import FrontPage from "./pages/FrontPage";
 import About from "./pages/About";
 import Archive from "./pages/Archive";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
-import NavBar from "./components/NavBar";
+import NavBar from "./components/Common/NavBar";
 import { BrowserRouter as Router, Routes } from "react-router-dom";
-import Footer from "./components/Footer";
+import Footer from "./components/Common/Footer";
 
 //add links to navigate between pages
 
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/archive" element={<Archive />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
         <Footer></Footer>
       </Router>

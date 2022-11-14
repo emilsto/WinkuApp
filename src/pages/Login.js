@@ -55,7 +55,8 @@ const Login = () => {
     };
     
     return (
-        <div className="flex flex-col w-full items-center">
+        <div className="flex flex-col w-full m-5">
+            <h1 className="text-4xl font-bold">Login</h1>
         <div className="flex flex-col border border-slate-400 p-2 my-2">
             <div className="flex flex-col">
             <div className="flex flex-col">
@@ -85,6 +86,9 @@ const Login = () => {
                 >
                 Login
                 </button>
+                <p className="text-gray-400 text-sm mt-2">
+                Don't have an account? Sign up <a href="/signup">here</a>
+                </p>
             </div>
             </div>
         </div>

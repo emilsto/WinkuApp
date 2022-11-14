@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Posts from "../components/Posts";
+import Posts from "../components/Posts/Posts";
 
 const FrontPage = () => {
   //fetch fresh data from the API
@@ -13,7 +13,7 @@ const FrontPage = () => {
   //map over the data and display it
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center m-5">
       <Posts />
     </div>
   );

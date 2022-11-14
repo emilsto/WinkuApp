@@ -8,7 +8,6 @@ const creator = {
     avatar: "https://avatars.githubusercontent.com/u/70722483?s=400&u=062dbb94384357152ec92a57e94c5614145687f6&v=4",
 };
 
-
 const About = () => {
   return (
     <div className="flex flex-col m-5">
