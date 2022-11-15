@@ -10,7 +10,7 @@ const Archive = () => {
     const epicPost = {
         _id: "1",
         body: "This post is EPIC! It must have been really cool to read, but now it is archived. Too bad!",
-        likes: 1000000,
+        likes: 9001,
         dislikes: 0,
         user: {
             _id: "1",

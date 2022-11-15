@@ -5,6 +5,13 @@ import React from "react";
 //handle like and dislike buttons
 
 const PostFrame = ({ post }) => {
+    //format the date
+    const date = new Date(post.createdAt);
+    const options = { weekday: "short", year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "numeric" };
+    const formattedDate = date.toLocaleDateString("fi-FI", options);
+
+
+
     return (
         <div className="flex flex-col">
         <div className="flex flex-wrap border border-slate-400 p-1 my-1">
@@ -15,8 +22,10 @@ const PostFrame = ({ post }) => {
             <p className="text-gray-400">{post.user.bio}</p>
             </div>
             </div>
+            <div className="flex flex-col mx-5">
             <p className="text-lg">{post.body}</p>
-
+            <p className="pt-2">{formattedDate}</p>
+            </div>
             <div className="flex flex-row">
             <button className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-full m-2">
                 Like {post.likes}

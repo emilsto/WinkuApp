@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import PostBox from "./PostBox";
 import PostSkeleton from "./PostSkeleton";
 import PostFrame from "./PostFrame";
+import Searchbar from "../Common/Searchbar";
 
 //more dummy data for now
 const post = {
@@ -50,7 +51,7 @@ const Posts = () => {
 
   return (
     <div className="flex flex-col">
-         <PostBox user={user} />
+          <PostBox user={user} />
         {data.length === 0 ? (
             <PostSkeleton />
         ) : (

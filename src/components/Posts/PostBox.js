@@ -23,8 +23,6 @@ const PostBox = ( {user}) => {
     console.log(post);
     //push the post to the database
 
-
-
     //clear the post box
 
     setPost({
@@ -54,10 +52,6 @@ const PostBox = ( {user}) => {
         setScroll(e.target.scrollTop);
         console.log(scroll);
     }
-
-
-
-
 
   return (
     <div className="flex flex-wrap w-full border border-slate-400 p-2 my-2">
