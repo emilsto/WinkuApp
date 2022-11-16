@@ -1,11 +1,17 @@
-//make associations between the models
-const User = require('./user');
-const Post = require('./post');
-
+import User from "./user_model.js";
+import Post from "./post_model.js";
 
 const Associations = () => {
-    User.hasMany(Post);
-    Post.belongsTo(User);
+  // user has many posts, post belongs to user with userId
+  User.hasMany(Post, {
+    foreignKey: "userId",
+    as: "posts",
+  });
+  Post.belongsTo(User, {
+    foreignKey: "userId",
+    as: "user",
+  });
+
 };
 
 export default Associations;

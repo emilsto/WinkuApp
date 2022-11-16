@@ -1,0 +1,24 @@
+
+version: '3.8'
+services:
+  db_winku:
+    image: mysql:latest
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: winku_db 
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - target: 3306
+        published: 3306
+        host_ip: 127.0.0.1
+        protocol: tcp
+        mode: host
+  adminer:
+    image: adminer
+    restart: always
+    ports: 
+    - '8080:8080'
