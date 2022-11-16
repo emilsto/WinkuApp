@@ -53,12 +53,16 @@ export const createPost = async (req, res) => {
 export const getPosts = async (req, res) => {
   try {
     const posts = await Post.findAll({
-      attributes: ["content", "likes", "dislikes", "createdAt"],
+      attributes: ["id", "content", "likes", "dislikes", "createdAt"],
       include: [
         {
-          User,
-          attributes: ["username", "bio", "profilePicture"],
-        },
+          // include the User model here:
+          model: User,
+          attributes: ["username", "bio", "image"], // only return the username, bio and image
+
+          // include the Post model here:
+        
+          },
       ],
       order: [["createdAt"]],
     });

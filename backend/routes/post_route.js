@@ -3,12 +3,12 @@ import { getPosts, getPostById, createPost, updatePost, deletePost, likePost, un
 
 const router = express.Router();
 
-router.get("/", getPosts);
-router.get("/:id", getPostById);
-router.post("/", createPost);
-router.put("/:id", updatePost);
-router.delete("/:id", deletePost);
-router.put("/:id/like", likePost);
-router.put("/:id/unlike", unlikePost);
+router.get("/posts", getPosts);
+router.get("/posts:id", getPostById);
+router.post("/posts", createPost);
+router.put("/posts:id", updatePost);
+router.delete("/posts:id", deletePost);
+router.put("/posts:id/like", likePost);
+router.put("/posts:id/unlike", unlikePost);
 
 export default router;

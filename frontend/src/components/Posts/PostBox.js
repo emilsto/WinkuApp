@@ -55,7 +55,7 @@ const PostBox = ({ user }) => {
           </div>
         </div>
         <form onSubmit={handleSubmit}>
-          <div class="pt-6 text-center space-y-4">
+          <div className="pt-6 text-center space-y-4">
             <textarea
               className="text-m text-gray-900 bg-white-200 border-0 resize-none w-full"
               name="content"

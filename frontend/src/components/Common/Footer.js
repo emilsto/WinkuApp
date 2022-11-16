@@ -1,5 +1,5 @@
 const Footer = () => (
-  <footer class="flex flex-col justify-center border-t pt-5 mt-5">
+  <footer className="flex flex-col justify-center border-t pt-5 mt-5">
     <p className="text-xl">© 2022 Winku Company, Inc.</p>
     <div>
       <p className="text-xs">

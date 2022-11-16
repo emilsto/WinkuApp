@@ -17,8 +17,8 @@ const App = () => {
     <div>
       <NavBar />
 
-      <div class="flex justify-center items-center">
-        <div className="content-wrapper" class="w-6/12">
+      <div className="flex justify-center items-center">
+        <div className="content-wrappe w-6/12">
           <Router>
             <Routes>
               <Route path="/" element={<FrontPage />} />

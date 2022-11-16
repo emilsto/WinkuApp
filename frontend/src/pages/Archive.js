@@ -14,7 +14,7 @@ const Archive = () => {
       _id: "1",
       username: "emilTheDev",
       bio: "Ganster of Love",
-      avatar: "https://avatars.githubusercontent.com/u/61960869?v=4",
+      image: "https://avatars.githubusercontent.com/u/54960869?v=4",
     },
     createdAt: "2021-06-01T20:00:00.000Z",
     updatedAt: "2021-06-01T20:00:00.000Z",

@@ -8,8 +8,6 @@ const Associations = () => {
     as: "posts",
   });
   Post.belongsTo(User, {
-    foreignKey: "userId",
-    as: "user",
   });
 
 };

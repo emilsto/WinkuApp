@@ -18,21 +18,21 @@ const PostFrame = ({ post }) => {
   const formattedDate = date.toLocaleDateString("fi-FI", options);
 
   return (
-    <div className="flex flex-col">
+    <div key={post.id} className="flex flex-col w-full">
       <div className="flex flex-wrap border border-slate-400 p-1 my-1">
         <div className="flex flex-row items-center m-5">
           <img
             className="rounded-full w-12 h-12"
-            src={post.user.avatar}
+            src={post.user.image}
             alt=""
           ></img>
-          <div className="flex flex-col">
+          <div className="flex flex-col mx-1">
             <p className="">@{post.user.username}</p>
             <p className="text-gray-400">{post.user.bio}</p>
           </div>
         </div>
-        <div className="flex flex-col mx-5">
-          <p className="text-lg">{post.body}</p>
+        <div className="flex flex-col mx-5 w-full">
+          <p className="text-lg">{post.content}</p>
           <p className="pt-2">{formattedDate}</p>
         </div>
         <div className="flex flex-row">
