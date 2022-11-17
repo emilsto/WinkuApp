@@ -11,9 +11,7 @@ import db from "./config/database.js";
 const app = express();
 
 const corsOptions = {
-  origin: [
-    "http://localhost:3000", "*"  ],
-  credentials: true,
+  origin: "http://localhost:3000"
 };
 
 app.use(cors(corsOptions));

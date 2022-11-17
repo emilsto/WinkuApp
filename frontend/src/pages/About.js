@@ -1,14 +1,6 @@
 //about page that talks about the app and the team that created it
 import React from "react";
 
-//json object contains creator data, github link and profile picture
-const creator = {
-  name: "Emil",
-  github: "https://github.com/emilsto",
-  avatar:
-    "https://avatars.githubusercontent.com/u/70722483?s=400&u=062dbb94384357152ec92a57e94c5614145687f6&v=4",
-};
-
 //json array with team members Emil, Johnson and Ligma
 const team = [
   {

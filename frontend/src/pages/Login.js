@@ -1,22 +1,8 @@
 //page that contains the login form. Or signup form if the user is new
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import axios from "../api/axios";
 
-// dummy data that contains the valid username and password
-
-const users = [
-  {
-    username: "emilTheDev",
-    password: "password",
-  },
-  {
-    username: "emilTheDev2",
-    password: "password",
-  },
-  {
-    username: "emilTheDev3",
-    password: "password",
-  },
-];
+const LOGIN_URL = "/api/login";
 
 const Login = () => {
   //set up state for the login form
@@ -24,6 +10,10 @@ const Login = () => {
     username: "",
     password: "",
   });
+
+  //state for the error message
+  const [error, setError] = useState("");
+  //error message ref
 
   //handle change for the login form
 
@@ -36,21 +26,48 @@ const Login = () => {
 
   //handle submit for the login form
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //check if the username and password match the dummy data
-    const user = users.find(
-      (user) =>
-        user.username === login.username && user.password === login.password
-    );
-    //if the user exists, log them in
-    if (user) {
-      console.log("logged in");
+    console.log(login);
+    //check that login credentials have been entered
+    if (login.username === "" || login.password === "") {
+      setError("Please enter your username and password");
+      return;
     }
-    //if the user does not exist, tell the user that the username or password is incorrect
-    else {
-      console.log("username or password is incorrect");
+
+    // sign in the user
+
+    try {
+      //send the login credentials to the server
+      const response = await axios.post(LOGIN_URL,
+      JSON.stringify(login),
+      {
+        headers: { "Content-Type": "application/json" }
+      });
+      const token = response.data;
+      localStorage.setItem("token", token);
+      console.log(token);
+
+      //clear the login form
+      setLogin({
+        username: "",
+        password: "",
+      });
+      //redirect to the home page
+      window.location.href = "/";
+    
+    } catch (error) {
+      if(error?.response?.statusCode === 401){
+        setError("Invalid username or password");
+      }
+      else if(error?.response?.status === 500){
+        setError("Internal server error");
+      }
+      else{
+        console.log(error);
+      }
     }
+
   };
 
   return (
@@ -79,6 +96,7 @@ const Login = () => {
             ></input>
           </div>
           <div className="flex flex-col mt-2">
+            <p className="text-red-600">{error}</p>
             <button
               className="bg-red-600 text-white p-2 rounded-md hover:bg-red-700"
               onClick={handleSubmit}

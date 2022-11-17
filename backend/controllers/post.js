@@ -10,31 +10,25 @@ export const createPost = async (req, res) => {
       message: "Content can not be empty!",
     });
     return;
-  }
-
-  //verify token
-  const token = req.header("x-auth-token");
-  if (!token) {
+  } else if (!req.headers.authorization) {
     res.status(401).send({
-      message: "No token, authorization denied",
+      message: "Unauthorized",
     });
     return;
   }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded.user;
-  } catch (error) {
-    res.status(401).send({
-      message: "Token is not valid",
-    });
-    return;
-  }
+  // Get user id from token
+  const token = req.headers.authorization;
+  console.log(token);
+  const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+  console.log(decoded.user);
 
   // Create a Post
   const post = {
     content: req.body.content,
-    userId: req.user.id,
+    likes: 0,
+    dislikes: 0,
+    userId: decoded.user.id,
   };
 
   // Save Post in the database
@@ -42,7 +36,8 @@ export const createPost = async (req, res) => {
     const newPost = await Post.create(post);
     res.send(newPost);
     console.log("Post created successfully!");
-  } catch (error) {
+  }
+  catch (error) {
     res.status(500).send({
       message: error.message || "Some error occurred while creating the Post.",
     });

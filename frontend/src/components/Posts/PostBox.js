@@ -1,6 +1,9 @@
 //component to handle posting to the database
 
 import React, { useState } from "react";
+import axios from "../../api/axios";
+
+const POST_URL = "/api/posts";
 
 const PostBox = ({ user }) => {
   //set up state for the post
@@ -17,16 +20,28 @@ const PostBox = ({ user }) => {
   };
 
   //handle submit for the post
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(post);
-
+    postToDatabase();
     setPost({
       content: "",
     });
   };
 
+  const postToDatabase = async (e) => {
+    //grab the token from local storage
+    const token = localStorage.getItem("token");
+
+    const response = await axios.post(POST_URL, 
+      JSON.stringify(post),
+      {
+        headers: { "Content-Type": "application/json",
+        "Authorization": token }
+      });
+    console.log(response);
+    //refresh the page
+    window.location.reload();
+  };
   //text counter for the post
 
   const [count, setCount] = useState(140);

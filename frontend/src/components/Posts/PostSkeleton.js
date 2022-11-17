@@ -1,5 +1,4 @@
 //this is the skeleton component that will be displayed while the post is loading
-
 import React from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -9,7 +8,6 @@ const PostSkeleton = () => {
       <div className="flex flex-wrap justify-center">
         <div className="flex flex-col items-center m-5">
           <h2 className="text-2xl font-bold">Loading...</h2>
-
           <ClipLoader
             color="red"
             loading={true}

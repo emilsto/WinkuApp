@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Posts from "../components/Posts/Posts";
 import PostBox from "../components/Posts/PostBox";
+import axios from "../api/axios";
+
 
 const user = {
   _id: "1",
@@ -11,26 +13,34 @@ const user = {
 
 
 const FrontPage = () => {
+  //data from the API
     const [data, setData] = useState([]);
+    const [isLogged, setIsLogged] = useState(false);
+
+    //check if user is logged in via local storage
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            setIsLogged(true);
+        }
+        //set user data to API data
+    }, []);
 
   //fetch fresh data from the API
   const apiCall = async () => {
     const res = await fetch("http://localhost:4000/api/posts");
     const data = await res.json();
     setData(data);
-    console.log(data);
   };
 
   useEffect(() => {
     apiCall();
   }, []);
 
-  //map over the data and display it
 
   return (
-    <div className="flex flex-col items-center m-5">
-      <PostBox user={user}/>
-      <Posts data={data}/>
+    <div className="flex flex-col m-5">
+      {isLogged ? <PostBox user={user}/> : <p>Please log in to post</p>}
+      <Posts data={data} />
     </div>
   );
 };
