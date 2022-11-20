@@ -29,15 +29,14 @@ const Post = db.define("post", {
     type: Sequelize.DATE,
     defaultValue: fn("NOW"),
   },
-   userId: {
-     type: Sequelize.INTEGER,
-   allowNull: false,
-     references: {
-       model: "users",
-       key: "id",
-     },
+  userId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: "users",
+      key: "id",
+    },
   },
-
 });
 
 export default Post;

@@ -1,10 +1,11 @@
 //page that contains the login form. Or signup form if the user is new
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from "../api/axios";
 
 const LOGIN_URL = "/api/login";
 
 const Login = () => {
+
   //set up state for the login form
   const [login, setLogin] = useState({
     username: "",

@@ -19,7 +19,7 @@ const PostFrame = ({ post }) => {
 
   return (
     <div key={post.id} className="flex flex-col w-full">
-      <div className="flex flex-wrap border border-slate-400 p-1 my-1">
+      <div className="border border-slate-300 shadow rounded-md p-4 max-w-m m-2 w-full">
         <div className="flex flex-row items-center m-5">
           <img
             className="rounded-full w-12 h-12"
@@ -36,11 +36,11 @@ const PostFrame = ({ post }) => {
           <p className="pt-2">{formattedDate}</p>
         </div>
         <div className="flex flex-row">
-          <button className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-full m-2">
-            Like {post.likes}
+          <button className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-xl m-2">
+            Cool {post.likes}
           </button>
-          <button className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-full m-2">
-            Dislike {post.dislikes}
+          <button className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-xl m-2">
+            Not cool {post.dislikes}
           </button>
         </div>
       </div>

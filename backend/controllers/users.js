@@ -96,54 +96,56 @@ export const updateUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   // Validate request
-  try{
-  if (!req.body.username || !req.body.password) {
-    const error = new Error("Username or password is missing");
-    error.statusCode = 401;
-    throw error;
-  }
+  try {
+    if (!req.body.username || !req.body.password) {
+      const error = new Error("Username or password is missing");
+      error.statusCode = 401;
+      throw error;
+    }
 
-  //check if username exists
-  const user = await User.findOne({ where: { username: req.body.username } });
-  if (!user) {
-    const error = new Error("Username does not exist");
-    error.statusCode = 401;
-    throw error;
-  }
+    //check if username exists
+    const user = await User.findOne({ where: { username: req.body.username } });
+    if (!user) {
+      const error = new Error("Username does not exist");
+      error.statusCode = 401;
+      throw error;
+    }
 
-  //log the user info
-  console.log(user);
+    //log the user info
+    console.log(user);
 
-  //check if password is correct
-  const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) {
-    const error = new Error("Password is incorrect");
-    error.statusCode = 401;
-    throw error;
-  }
-  //create and assign a token
+    //check if password is correct
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!validPassword) {
+      const error = new Error("Password is incorrect");
+      error.statusCode = 401;
+      throw error;
+    }
+    //create and assign a token
 
-  //set payload to user id, username, bio and image
-  
-  const payload = {
-    user: {
-      id: user.id,
-      username: user.username,
-      bio: user.bio,
-      image: user.image,
-    },
-  };
+    //set payload to user id, username, bio and image
 
-  const token = jwt.sign(payload, process.env.TOKEN_SECRET);
-  res.cookie("auth-token", token)
-  .send(token);
-  console.log("User logged in successfully!");
+    const payload = {
+      user: {
+        id: user.id,
+        username: user.username,
+        bio: user.bio,
+        image: user.image,
+      },
+    };
+
+    const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+    res.cookie("auth-token", token).send(token);
+    console.log("User logged in successfully!");
   } catch (error) {
     console.log(error);
     //res message
     res.status(error.status || 500).send(error);
   }
-}; 
+};
 
 export const logOutUser = async (req, res) => {
   //get token from cookie, verify it, and remove it
@@ -178,22 +180,4 @@ export const getUserById = async (req, res) => {
       message: error.message || "Some error occurred while retrieving user.",
     });
   }
-}; 
-
-// User sends toke -> server verifies token -> server sends user info
-
-export const verifyUser = async (req, res) => {
-  //get token from cookie, verify it, and send user info
-  const token = req.body.token;
-  console.log(token);
-  //remove "" from token
-  const tokenString = token.replace(/['"]+/g, "");
-
-  if (!tokenString) return res.status(401).send("Access Denied");
-  try {
-    const verified = jwt.verify(tokenString, process.env.TOKEN_SECRET);
-    res.send(verified);
-  } catch (error) {
-    res.status(400).send("Invalid token");
-  }
-}
+};

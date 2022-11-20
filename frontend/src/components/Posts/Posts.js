@@ -12,7 +12,13 @@ const Posts = ({data}) => {
   return (
     <div className="flex flex-col">
       {data.length === 0 ? (
+        <div className="flex flex-col items-center">
         <PostSkeleton />
+        <PostSkeleton />
+        <PostSkeleton />
+        <PostSkeleton />
+
+        </div>
       ) : (
         <div className="flex flex-col-reverse">
           {data.map((post) => (

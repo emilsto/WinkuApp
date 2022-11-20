@@ -21,13 +21,14 @@ const FrontPage = () => {
     useEffect(() => {
         if (localStorage.getItem("token")) {
             setIsLogged(true);
+        } else {
+            setIsLogged(false);
         }
-        //set user data to API data
     }, []);
 
   //fetch fresh data from the API
   const apiCall = async () => {
-    const res = await fetch("http://localhost:4000/api/posts");
+    const res = await fetch("http://localhost:4000/api/poss");
     const data = await res.json();
     setData(data);
   };

@@ -1,6 +1,8 @@
 import Post from "../models/post_model.js";
 import User from "../models/user_model.js";
 import jwt from "jsonwebtoken";
+import sequelize from "../config/database.js";
+import { QueryTypes } from 'sequelize';
 
 // Create and Save a new Post
 export const createPost = async (req, res) => {
@@ -36,8 +38,7 @@ export const createPost = async (req, res) => {
     const newPost = await Post.create(post);
     res.send(newPost);
     console.log("Post created successfully!");
-  }
-  catch (error) {
+  } catch (error) {
     res.status(500).send({
       message: error.message || "Some error occurred while creating the Post.",
     });
@@ -56,8 +57,7 @@ export const getPosts = async (req, res) => {
           attributes: ["username", "bio", "image"], // only return the username, bio and image
 
           // include the Post model here:
-        
-          },
+        },
       ],
       order: [["createdAt"]],
     });
@@ -95,7 +95,7 @@ export const getPostById = async (req, res) => {
       message: error.message || "Some error occurred while retrieving post.",
     });
   }
-}
+};
 
 // Update a Post by the id in the request
 export const updatePost = async (req, res) => {
@@ -118,7 +118,7 @@ export const updatePost = async (req, res) => {
       message: error.message || "Some error occurred while updating post.",
     });
   }
-}
+};
 
 // Delete a Post with the specified id in the request
 export const deletePost = async (req, res) => {
@@ -139,7 +139,7 @@ export const deletePost = async (req, res) => {
       message: error.message || "Some error occurred while deleting post.",
     });
   }
-}
+};
 
 // Like a Post with the specified id in the request
 
@@ -163,7 +163,7 @@ export const likePost = async (req, res) => {
       message: error.message || "Some error occurred while liking post.",
     });
   }
-}
+};
 
 // Unlike a Post with the specified id in the request
 
@@ -187,7 +187,7 @@ export const unlikePost = async (req, res) => {
       message: error.message || "Some error occurred while unliking post.",
     });
   }
-}
+};
 
 // Special method to create a post with a user id
 
@@ -216,4 +216,31 @@ export const createPostWithUserId = async (req, res) => {
       message: error.message || "Some error occurred while creating the Post.",
     });
   }
-}
+};
+
+//fetch x amount of posts , use a offset to get the next x amount of posts
+export const getPostsByAmount = async (req, res) => {
+  //custom query to get x amount of posts
+  try {
+
+    // this a workarround for sequelize not supporting limit in mysql 8.0
+    let query = "SELECT `post`.`id`, `post`.`content`, `post`.`likes`, `post`.`dislikes`, `post`.`createdAt`, `user`.`id` AS `user.id`, `user`.`username` AS `user.username`, `user`.`bio` AS `user.bio`, `user`.`image` AS `user.image` FROM `posts` AS `post` LEFT OUTER JOIN `users` AS `user` ON `post`.`userId` = `user`.`id` ORDER BY `post`.`createdAt` DESC LIMIT AMOUNT OFFSET OFF_SET";
+    const amount = req.params.amount;
+    const offset = req.params.offset;
+    //replace the 5 with the amount and the 2 with the offset
+    query = query.replace("AMOUNT", amount);
+    query = query.replace("OFF_SET", offset);
+
+    console.log(amount, offset);
+    const posts = await sequelize.query(query, {
+      type: QueryTypes.SELECT,
+    });
+  
+    res.send(posts);
+    console.log("Posts fetched successfully!");
+  } catch (error) {
+    res.status(500).send({
+      message: error.message || "Some error occurred while retrieving posts.",
+    });
+  }
+};

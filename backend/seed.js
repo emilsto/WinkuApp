@@ -2,52 +2,54 @@ import User from "./models/user_model.js";
 import Post from "./models/post_model.js";
 import bcrypt from "bcryptjs";
 
+export const createPosts = async () => {
+  const posts = await Post.findAll();
+  if (posts.length === 0) {
+    console.log("No posts found, creating posts...");
 
-export const createPosts = async ()=> {
-    const posts = await Post.findAll();
-    if (posts.length === 0) {
-      console.log("No posts found, creating posts...");
-  
-  for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 100; i++) {
+      Post.create({
+        content: post_content[Math.floor(Math.random() * post_content.length)],
+        likes: Math.floor(Math.random() * 100),
+        dislikes: Math.floor(Math.random() * 10),
 
-    Post.create({
-      content : post_content[Math.floor(Math.random()*post_content.length)],
-      likes: Math.floor(Math.random() * 100),
-      dislikes: Math.floor(Math.random() * 10),
-  
-      // Set the user id to a random user id between 1 and 11
-      userId: Math.floor(Math.random() * 11) + 1,
-    });
-  }
-    } else {
-      console.log("Posts found, skipping...");
+        // Set the user id to a random user id between 1 and 11
+        userId: Math.floor(Math.random() * 11) + 1,
+      });
     }
-}
-
-  
-// Create users
-  
-export const createUsers = async () => {
-    const users = await User.findAll();
-    if (users.length === 0) {
-  // create user emilTheDev with password password
-  User.create({
-    username: "emilTheDev",
-    password: await bcrypt.hash("password", 10),
-    bio: "I am emilTheDev",
-    image: "https://avatars.githubusercontent.com/u/70722483?s=400&u=062dbb94384357152ec92a57e94c5614145687f6&v=4",
-  });
-  
-  // create 10 default users with random usernames, hashed passwords bios and use some random images from github
-  for (let i = 0; i < 10; i++) {
-    User.create({
-      // get random username from array
-      username: `${usernames[Math.floor(Math.random()*usernames.length)]}${usernames[Math.floor(Math.random()*usernames.length)]}` ,
-      password: await bcrypt.hash(`password${i}`, 10),
-      bio: bios[Math.floor(Math.random()*bios.length)],
-      image: `https://avatars.githubusercontent.com/u/${i+Math.floor(Math.random()*2000)}?v=4`,
-    });
+  } else {
+    console.log("Posts found, skipping...");
   }
+};
+
+// Create users
+
+export const createUsers = async () => {
+  const users = await User.findAll();
+  if (users.length === 0) {
+    // create user emilTheDev with password password
+    User.create({
+      username: "emilTheDev",
+      password: await bcrypt.hash("password", 10),
+      bio: "I am emilTheDev",
+      image:
+        "https://avatars.githubusercontent.com/u/70722483?s=400&u=062dbb94384357152ec92a57e94c5614145687f6&v=4",
+    });
+
+    // create 10 default users with random usernames, hashed passwords bios and use some random images from github
+    for (let i = 0; i < 10; i++) {
+      User.create({
+        // get random username from array
+        username: `${usernames[Math.floor(Math.random() * usernames.length)]}${
+          usernames[Math.floor(Math.random() * usernames.length)]
+        }`,
+        password: await bcrypt.hash(`password${i}`, 10),
+        bio: bios[Math.floor(Math.random() * bios.length)],
+        image: `https://avatars.githubusercontent.com/u/${
+          i + Math.floor(Math.random() * 2000)
+        }?v=4`,
+      });
+    }
   }
 };
 
@@ -75,8 +77,6 @@ const usernames = [
   "petra",
   "petter",
   "david",
-  "davide",
-  "davida",
   "davidson",
   "davidsson",
   "taavi",
@@ -95,7 +95,6 @@ const usernames = [
   "eero",
   "eeronen",
   "eeroja",
-  "eerojä",
   "olli",
   "ollija",
   "gwen",
@@ -164,13 +163,14 @@ const bios = [
   "Truck nuts are the best",
   "Biden is a lizard",
   "Life is pain",
-  "Hooters is my fav", 
+  "Hooters is my fav",
   "What happend here?",
   "Blood and thuder",
   "Lok'tar ogar",
   "Kusipää ja sosiopaatti",
   "FANG companies SUkk",
   "Ponua poltan",
+  "Misantrooppi",
 ];
 
 const post_content = [
@@ -192,6 +192,4 @@ const post_content = [
   "Carol drank the blood as if she were a vampire.",
   "The opportunity of a lifetime passed before him as he tried to decide between a cone or a cup.",
   "I caught my squirrel rustling through my gym bag. LMAO!!! I killed the little guy later xD",
-
-
 ];

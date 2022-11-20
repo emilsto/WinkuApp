@@ -7,9 +7,7 @@ const Associations = () => {
     foreignKey: "userId",
     as: "posts",
   });
-  Post.belongsTo(User, {
-  });
-
+  Post.belongsTo(User, {});
 };
 
 export default Associations;

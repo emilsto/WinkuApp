@@ -26,13 +26,11 @@ const User = db.define("user", {
     allowNull: true,
   },
   createdAt: {
-    type: Sequelize.DATE
+    type: Sequelize.DATE,
   },
   updatedAt: {
-    type: Sequelize.DATE
-    },
+    type: Sequelize.DATE,
+  },
 });
-
-
 
 export default User;
