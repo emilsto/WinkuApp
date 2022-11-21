@@ -3,7 +3,7 @@
 import React from "react";
 import icon_admin from "../../assets/admin-icon.svg";
 import Utilitybar from "./Utilitybar";
-import Comment from "./Comment";
+import { Link } from "react-router-dom";
 
 //handle like and dislike buttons
 
@@ -42,7 +42,7 @@ const PostFrame = ({ post }) => {
           ></img>
           <div className="flex flex-col mx-1">
             <div className="flex flex-row">
-              <p className=""><a href={`/${post.user.username}`}>@{post.user.username}</a></p>
+              <p className=""><Link to={`/${post.user.username}`}>@{post.user.username}</Link></p>
               {isAdmin ? (
                 <div className="flex flex-row">
                   {" "}

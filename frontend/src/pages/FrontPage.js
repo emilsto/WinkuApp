@@ -4,8 +4,6 @@ import Posts from "../components/Posts/Posts";
 import PostBox from "../components/Posts/PostBox";
 import LoadingPosts from "../components/Posts/PostSkeleton";
 import axios from "../api/axios";
-import NavBar from "../components/Common/NavBar";
-import LeftNav from "../components/Common/LeftNav";
 
 const user = {
   _id: "1",

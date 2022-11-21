@@ -1,5 +1,4 @@
-import { Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
 
 import FrontPage from "./pages/FrontPage";
 import About from "./pages/About";
@@ -8,19 +7,18 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Logout from "./pages/Logout";
 import Profile from "./pages/Profile";
+import FourOhFour from "./pages/FourOhFour";
 
 import NavBar from "./components/Common/NavBar";
 import LeftNav from "./components/Common/LeftNav";
-import { BrowserRouter as Router, Routes } from "react-router-dom";
 import Footer from "./components/Common/Footer";
+
+import ScrollToTop from "./helpers/ScrollToTop";
 
 //add links to navigate between pages
 
 const App = () => {
   //pass current site to navbar
-  
-
-
 
   return (
     <div>
@@ -28,28 +26,20 @@ const App = () => {
       <LeftNav />
 
         <div className="w-2/6 justify-center">
-
         <NavBar />
-          <Router>
-            <Routes>
-              <Route path="/" element={<FrontPage />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/archive" element={<Archive />} />
-              <Route path="/:username" element={<Profile />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/logout" element={<Logout />} />
-              <Route
-                path="*"
-                element={
-                  <h1 className="flex flex-col justify-center m-5 font-bold text-4xl text-center">
-                    404
-                  </h1>
-                }
-              />
-            </Routes>
+        <ScrollToTop>
+        <Switch>
+              <Route path="/" exact component={FrontPage} />
+              <Route path="/about"  component={About} />
+              <Route path="/archive" component={Archive} />
+              <Route path="/login"  component={Login} />
+              <Route path="/:username" exaxt component={Profile} />
+              <Route path="/logout" component={Logout} />
+              <Route path="/signup" component={Signup} />
+              <Route component={FourOhFour} />
+            </Switch>
+            </ScrollToTop>
             <Footer></Footer>
-          </Router>
         </div>
       </div>
     </div>
@@ -57,3 +47,4 @@ const App = () => {
 };
 
 export default App;
+

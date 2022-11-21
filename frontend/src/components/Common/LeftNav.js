@@ -1,6 +1,6 @@
 //leftnav renders different links based on if user is logged in or not
-
 import { useState, useEffect} from "react";
+import { Link } from "react-router-dom";
 
 const LeftNav = ({ user }) => {
 
@@ -20,18 +20,18 @@ const LeftNav = ({ user }) => {
         <div className="w-2/6">
         <div className="text-xl sticky z-50 top-0">
             <div className="grid grid-cols-1 gap-4 content-between float-right mr-12">
-            <a href="/" className="mt-5"># Winku</a>
-            <a href="/about"># about</a>
-            <a href="/archive"># Archive</a>
+            <Link to="/" className="mt-5"># Winku</Link>
+            <Link to="/about"># about</Link>
+            <Link to="/archive"># Archive</Link>
             {isLogged ? (
                 <a href={`/${user.username}`}># {user.username}</a>
             ) : null}
             {isLogged ? (
-                <a href="/logout"># logout</a>
+                <Link to="/logout"># logout</Link>
             ) : (
-                <a href="/login"># login</a>
+                <Link to="/login"># login</Link>
             )}
-            {isLogged ? null : <a href="/signup"># signup</a>}
+            {isLogged ? null : <Link to="/signup"># signup</Link>}
           <div className="hover:text-purple-600">
             <button className="bg-purple-500 hover:text-slate-500 text-white font-bold px-8 py-2 rounded-full">
               Wingu
