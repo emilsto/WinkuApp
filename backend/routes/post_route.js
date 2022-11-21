@@ -3,22 +3,28 @@ import {
   getPosts,
   getPostById,
   createPost,
-  updatePost,
-  deletePost,
-  likePost,
-  unlikePost,
-  getPostsByAmount,
+  getTopPostsComments,
+  getPostsByUserId,
+  getPostsByUserName,
+  getPostsByPage,
 } from "../controllers/post.js";
 
 const router = express.Router();
 
 router.get("/posts", getPosts);
-router.get("/posts/user/:id", getPostById);
+router.get("/posts/top", getTopPostsComments);
 router.post("/posts", createPost);
-router.put("/posts/:id", updatePost);
-router.delete("/posts/:id", deletePost);
-router.put("/posts/:id/like", likePost);
-router.put("/posts/:id/unlike", unlikePost);
-router.get("/posts/:amount/:offset", getPostsByAmount);
+router.get("/posts/:id", getPostById);
+router.get("/posts/id:id", getPostsByUserId);
+router.get("/posts/pages/:page", getPostsByPage);
+router.get("/profile/:username", getPostsByUserName);
+
+
+
+
+
+//route order matters, so put static routes at the top
+
+
 
 export default router;

@@ -1,7 +1,9 @@
+//model for comment, has a foreign key of post id and user id
+
 import { fn, Sequelize } from "sequelize";
 import db from "../config/database.js";
 
-const Post = db.define("post", {
+const Comment = db.define("comment", {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -10,16 +12,6 @@ const Post = db.define("post", {
   content: {
     type: Sequelize.STRING,
     allowNull: false,
-  },
-  likes: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-  },
-  dislikes: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
   },
   createdAt: {
     type: Sequelize.DATE,
@@ -37,11 +29,24 @@ const Post = db.define("post", {
       key: "id",
     },
   },
-  isEpic: {
-    type: Sequelize.BOOLEAN,
+  postId: {
+    type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: false,
+    references: {
+      model: "posts",
+      key: "id",
+    },
+  },
+  likes: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  },
+  dislikes: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
   },
 });
 
-export default Post;
+export default Comment;

@@ -1,10 +1,24 @@
 //frame for posts, will be used in the Posts component and populated with data from the database
 
 import React from "react";
+import icon_admin from "../../assets/admin-icon.svg";
+import Utilitybar from "./Utilitybar";
+import Comment from "./Comment";
 
 //handle like and dislike buttons
 
 const PostFrame = ({ post }) => {
+  const [isAdmin, setIsAdmin] = React.useState(false);
+  const adminCheck = () => {
+    if (post.user.isAdmin) {
+      setIsAdmin(true);
+    }
+  };
+
+  React.useEffect(() => {
+    adminCheck();
+  });
+
   //format the date
   const date = new Date(post.createdAt);
   const options = {
@@ -18,8 +32,8 @@ const PostFrame = ({ post }) => {
   const formattedDate = date.toLocaleDateString("fi-FI", options);
 
   return (
-    <div key={post.id} className="flex flex-col w-full">
-      <div className="border border-slate-300 shadow rounded-md p-4 max-w-m m-2 w-full">
+    <div key={post.id} className="flex-col max-w-full min-w-full">
+      <div className="border-t border-x border-slate-300 rounded-none p-4 max-w-full w-full min-w-full hover:bg-slate-50">
         <div className="flex flex-row items-center m-5">
           <img
             className="rounded-full w-12 h-12"
@@ -27,21 +41,28 @@ const PostFrame = ({ post }) => {
             alt=""
           ></img>
           <div className="flex flex-col mx-1">
-            <p className="">@{post.user.username}</p>
+            <div className="flex flex-row">
+              <p className=""><a href={`/${post.user.username}`}>@{post.user.username}</a></p>
+              {isAdmin ? (
+                <div className="flex flex-row">
+                  {" "}
+                  <img
+                    className="w-4 h-4 m-1"
+                    src={icon_admin}
+                    alt="purple checkmark"
+                  ></img>{" "}
+                </div>
+              ) : null}
+            </div>
             <p className="text-gray-400">{post.user.bio}</p>
           </div>
         </div>
-        <div className="flex flex-col mx-5 w-full">
-          <p className="text-lg">{post.content}</p>
-          <p className="pt-2">{formattedDate}</p>
-        </div>
-        <div className="flex flex-row">
-          <button className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-xl m-2">
-            Cool {post.likes}
-          </button>
-          <button className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-xl m-2">
-            Not cool {post.dislikes}
-          </button>
+        <div className="max-w-220 mx-12">
+          <div className="flex flex-col w-full">
+            <p className="text-lg">{post.content}</p>
+            <p className="pt-2">{formattedDate}</p>
+            <Utilitybar post={post} />
+          </div>
         </div>
       </div>
     </div>

@@ -5,7 +5,6 @@ import axios from "../api/axios";
 const LOGIN_URL = "/api/login";
 
 const Login = () => {
-
   //set up state for the login form
   const [login, setLogin] = useState({
     username: "",
@@ -40,10 +39,8 @@ const Login = () => {
 
     try {
       //send the login credentials to the server
-      const response = await axios.post(LOGIN_URL,
-      JSON.stringify(login),
-      {
-        headers: { "Content-Type": "application/json" }
+      const response = await axios.post(LOGIN_URL, JSON.stringify(login), {
+        headers: { "Content-Type": "application/json" },
       });
       const token = response.data;
       localStorage.setItem("token", token);
@@ -56,19 +53,15 @@ const Login = () => {
       });
       //redirect to the home page
       window.location.href = "/";
-    
     } catch (error) {
-      if(error?.response?.statusCode === 401){
+      if (error?.response?.statusCode === 401) {
         setError("Invalid username or password");
-      }
-      else if(error?.response?.status === 500){
+      } else if (error?.response?.status === 500) {
         setError("Internal server error");
-      }
-      else{
+      } else {
         console.log(error);
       }
     }
-
   };
 
   return (

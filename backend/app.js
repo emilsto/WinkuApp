@@ -2,7 +2,7 @@ import express from "express";
 import userRouter from "./routes/user_route.js";
 import postRouter from "./routes/post_route.js";
 import Associations from "./models/index.js";
-import { createUsers, createPosts } from "./seed.js";
+import { createUsers, createPosts, createComments } from "./seed.js";
 import cors from "cors";
 
 import db from "./config/database.js";
@@ -29,6 +29,7 @@ try {
   await Associations();
   await createUsers();
   await createPosts();
+  await createComments();
 
   console.log("Connection has been established successfully.");
 } catch (error) {
@@ -43,6 +44,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+//cors test
 app.get("/cors", (req, res) => {
   res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   res.send({ msg: "This has CORS enabled 🎈" });

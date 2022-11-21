@@ -1,6 +1,5 @@
 import { fn, Sequelize } from "sequelize";
 import db from "../config/database.js";
-import bcrypt from "bcryptjs";
 
 const User = db.define("user", {
   id: {
@@ -30,6 +29,11 @@ const User = db.define("user", {
   },
   updatedAt: {
     type: Sequelize.DATE,
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
   },
 });
 

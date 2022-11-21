@@ -1,8 +1,9 @@
 import Post from "../models/post_model.js";
 import User from "../models/user_model.js";
+import Comment from "../models/comment_model.js";
 import jwt from "jsonwebtoken";
 import sequelize from "../config/database.js";
-import { QueryTypes } from 'sequelize';
+import { QueryTypes } from "sequelize";
 
 // Create and Save a new Post
 export const createPost = async (req, res) => {
@@ -222,9 +223,9 @@ export const createPostWithUserId = async (req, res) => {
 export const getPostsByAmount = async (req, res) => {
   //custom query to get x amount of posts
   try {
-
     // this a workarround for sequelize not supporting limit in mysql 8.0
-    let query = "SELECT `post`.`id`, `post`.`content`, `post`.`likes`, `post`.`dislikes`, `post`.`createdAt`, `user`.`id` AS `user.id`, `user`.`username` AS `user.username`, `user`.`bio` AS `user.bio`, `user`.`image` AS `user.image` FROM `posts` AS `post` LEFT OUTER JOIN `users` AS `user` ON `post`.`userId` = `user`.`id` ORDER BY `post`.`createdAt` DESC LIMIT AMOUNT OFFSET OFF_SET";
+    let query =
+      "SELECT `post`.`id`, `post`.`content`, `post`.`likes`, `post`.`dislikes`, `post`.`createdAt`, `user`.`id` AS `user_id`, `user`.`username` AS `username`, `user`.`bio` AS `bio`, `user`.`image` AS `image`, `user`.`isAdmin` AS `isAdmin` FROM `posts` AS `post` LEFT OUTER JOIN `users` AS `user` ON `post`.`userId` = `user`.`id` ORDER BY `post`.`createdAt` DESC LIMIT AMOUNT OFFSET OFF_SET";
     const amount = req.params.amount;
     const offset = req.params.offset;
     //replace the 5 with the amount and the 2 with the offset
@@ -235,7 +236,7 @@ export const getPostsByAmount = async (req, res) => {
     const posts = await sequelize.query(query, {
       type: QueryTypes.SELECT,
     });
-  
+
     res.send(posts);
     console.log("Posts fetched successfully!");
   } catch (error) {
@@ -244,3 +245,129 @@ export const getPostsByAmount = async (req, res) => {
     });
   }
 };
+
+// get comments for a post
+
+export const getCommentsForPost = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const comments = await Comment.findAll({
+      where: {
+        postId: id,
+      },
+      attributes: ["content", "createdAt"],
+      include: [
+        {
+          User,
+          attributes: ["username", "bio", "image"],
+        },
+      ],
+      order: [["createdAt"]],
+    });
+    res.send(comments);
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Some error occurred while retrieving comments.",
+    });
+  }
+};
+
+//send top 10 most recent posts with comments
+export const getTopPostsComments = async (req, res) => {
+  try {
+    const posts = await Post.findAll({
+      attributes: ["id", "content", "likes", "dislikes", "createdAt"],
+      include: [
+        {
+          model: User,
+          attributes: ["username", "bio", "image", "isAdmin"],
+        },
+      ],
+      order: [["createdAt", "DESC"]],
+      limit: 10,
+    });
+    res.send(posts);
+  } catch (error) {
+    res.status(500).send({
+      message: error.message || "Some error occurred while retrieving posts.",
+    });
+  }
+};
+
+//get posts by user id
+
+export const getPostsByUserId = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const posts = await Post.findAll({
+      where: {
+        userId: id,
+      },
+      attributes: ["id", "content", "likes", "dislikes", "createdAt"],
+      include: [
+        {
+          model: User,
+          attributes: ["username", "bio", "image", "isAdmin"],
+        },
+      ],
+      order: ["createdAt"],
+    });
+    res.send(posts);
+  } catch (error) {
+    res.status(500).send({
+      message: error.message || "Some error occurred while retrieving posts.",
+    });
+  }
+};
+
+//get posts by user name
+
+export const getPostsByUserName = async (req, res) => {
+  const username = req.params.username;
+  try {
+    const posts = await Post.findAll({
+      include: [
+        {
+          model: User,
+          where: {
+            username: username,
+          },
+          attributes: ["username", "bio", "image", "isAdmin"],
+        },
+      ],
+      order: ["createdAt"],
+    });
+    res.send(posts);
+  } catch (error) {
+    res.status(500).send({
+      message: error.message || "Some error occurred while retrieving posts.",
+    });
+  }
+}
+
+//form posts to pages. 10 posts per page
+
+export const getPostsByPage = async (req, res) => {
+  const page = req.params.page;
+  try {
+    const posts = await Post.findAll({
+      attributes: ["id", "content", "likes", "dislikes", "createdAt"],
+      include: [
+        {
+          model: User,
+          attributes: ["username", "bio", "image", "isAdmin"],
+        },
+      ],
+      order: [["createdAt", "DESC"]],
+      limit: 10,
+      offset: 10 * (page - 1),
+    });
+    res.send(posts);
+  } catch (error) {
+    res.status(500).send({
+      message: error.message || "Some error occurred while retrieving posts.",
+    });
+  }
+}
