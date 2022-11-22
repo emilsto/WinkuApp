@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 const PostFrame = ({ post }) => {
   const [isAdmin, setIsAdmin] = React.useState(false);
   const adminCheck = () => {
+    console.log("post", post.user.isAdmin);
     if (post.user.isAdmin) {
       setIsAdmin(true);
     }
@@ -29,6 +30,7 @@ const PostFrame = ({ post }) => {
     hour: "numeric",
     minute: "numeric",
   };
+
   const formattedDate = date.toLocaleDateString("fi-FI", options);
 
   return (

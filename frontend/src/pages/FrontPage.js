@@ -50,11 +50,31 @@ const FrontPage = () => {
     console.log("offset", offset);
     apiCall();
   };
+
+  const addData = (newPost) => {
+    //dummy data
+    const dummyData = {
+      id: "231",
+      content: "This is a dummy post",
+      likes: 0,
+      dislikes: 0,
+      user: {
+        id: "1",
+        username : "emilTheDev",
+        bio: "Ganster of Love",
+        image: "https://avatars.githubusercontent.com/u/54960869?v=4",
+      },
+      createdAt: "2021-06-01T20:00:00.000Z",
+      updatedAt: "2021-06-01T20:00:00.000Z",
+      __v: 0,
+    };
+    setData((prevData) => [newPost, ...prevData]);
+  };
   
 
   return (
     <div className="flex flex-col w-full">
-            {isLogged ? <PostBox user={user} /> : null}
+            {isLogged ? <PostBox user={user} addData={addData} /> : null}
       <InfiniteScroll
           dataLength={data.length}
           next={handleLoadMore}

@@ -6,30 +6,21 @@ import axios from "../../api/axios";
 
 const POST_URL = "/api/posts";
 
-const PostBox = ({ user }) => {
+const PostBox = ( {user, addData}) => {
   //set up state for the post
   const [post, setPost] = useState({
     content: "",
+    createdAt: new Date().toISOString(),
+    id: 99999999999, //arbitrary number for key
+    user: {
+      username: user.username,
+      image: user.avatar,
+      bio: user.bio,
+      isAdmin: true,
+    },
   });
 
-  //handle change for the post
-  const handleChange = (e) => {
-    setPost({
-      ...post,
-      [e.target.name]: e.target.value,
-    });
-  };
 
-  //handle submit for the post
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    postToDatabase();
-    setPost({
-      content: "",
-    });
-    //refresh the page  
-  };  
-    
 
   const postToDatabase = async (e) => {
     //grab the token from local storage
@@ -46,10 +37,34 @@ const PostBox = ({ user }) => {
   const [count, setCount] = useState(140);
   const handleCount = (e) => {
     setCount(140 - e.target.value.length);
-    console.log(count);
+  };
 
-    //if messages is over 140 characters, disable the submit button
-    // handle this later
+  //handle change for the post
+  const handleChange = (e) => {
+    setPost({
+      ...post,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postToDatabase();
+    //add user data to the post
+    addData(post);
+    //set post data back to default
+    setPost({
+      content: "",
+      createdAt: new Date().toISOString(),
+      id: Math.floor(100000000000 + Math.random() * 900000000000),
+      user: {
+        username: user.username,
+        image: user.avatar,
+        bio: user.bio,
+        isAdmin: true,
+      },
+    });
+
   };
 
   return (
@@ -69,7 +84,7 @@ const PostBox = ({ user }) => {
             <p className="text-gray-400">{user.bio}</p>
           </div>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form >
           <div className="pt-6 text-center space-y-4">
             <textarea
               className="text-m text-gray-900 bg-white-200 resize-none w-full"
@@ -92,6 +107,7 @@ const PostBox = ({ user }) => {
               </p>
               <button
                 type="submit"
+                onClick={handleSubmit}
                 className="bg-purple-500 text-neutral-50 font-bold rounded-full p-2 text-xl inline-flex items-center py-2.5 px-4 focus:ring-4 focus:ring-blue-200  hover:bg-red-800"
               >
                 Wingu!
