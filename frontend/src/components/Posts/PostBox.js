@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import axios from "../../api/axios";
 
+
 const POST_URL = "/api/posts";
 
 const PostBox = ({ user }) => {
@@ -26,7 +27,9 @@ const PostBox = ({ user }) => {
     setPost({
       content: "",
     });
-  };
+    //refresh the page  
+  };  
+    
 
   const postToDatabase = async (e) => {
     //grab the token from local storage

@@ -32,17 +32,17 @@ const PostFrame = ({ post }) => {
   const formattedDate = date.toLocaleDateString("fi-FI", options);
 
   return (
-    <div key={post.id} className="flex-col max-w-full min-w-full">
+    <div key={post.id} className="flex-col max-w-full">
       <div className="border-t border-x border-slate-300 rounded-none p-4 max-w-full w-full min-w-full hover:bg-slate-50">
         <div className="flex flex-row items-center m-5">
           <img
-            className="rounded-full w-12 h-12"
+            className="rounded-full w-12 h-12 hover:opacity-75"
             src={post.user.image}
             alt=""
           ></img>
           <div className="flex flex-col mx-1">
             <div className="flex flex-row">
-              <p className=""><Link to={`/${post.user.username}`}>@{post.user.username}</Link></p>
+              <p className="hover:underline"><Link to={`/${post.user.username}`}>@{post.user.username}</Link></p>
               {isAdmin ? (
                 <div className="flex flex-row">
                   {" "}

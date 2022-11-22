@@ -14,50 +14,39 @@ const user = {
   isAdmin: true,
 };
 
-//dummy user that encourages the user to log in
-const dummy_user = {
-  _id: "2",
-  username: "Log in to post",
-  bio: "Log in to post",
-  avatar:
-    "https://avatars.githubusercontent.com/u/70722483?s=400&u=062dbb94384357152ec92a57e94c5614145687f6&v=4",
-  isAdmin: false,
-};
-
 const FrontPage = () => {
-  //data from the API
+  //states
   const [data, setData] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(1);
 
-  //check if user is logged in via local storage
+    //fetch fresh data from the API
+    const apiCall = async () => {
+      const res = await axios.get(`http://localhost:4000/api/posts/pages/${offset}`);
+      console.log("called api with offset: " + offset);
+      const data = res.data;
+      setOffset((prevOffset) => prevOffset + 1);
+      //if retrieved data is empty, set hasMore to false
+      if (data.length === 0) {
+        setHasMore(false);
+      }
+      //add new data to the site and render it
+      //if there is a duplicate, it will be ignored
+      setData((prevData) => [...prevData, ...data]);
+    };
+  
+  //check if user is logged in via local storage and do the initial fetch
   useEffect(() => {
+    apiCall();
     if (localStorage.getItem("token")) {
       setIsLogged(true);
     }
     //set user data to API data
   }, []);
 
-  //fetch fresh data from the API
-  const apiCall = async () => {
-    const res = await axios.get(`http://localhost:4000/api/posts/pages/${offset}`);
-    console.log("called api with offset: " + offset);
-    const data = res.data;
-    setOffset((prevOffset) => prevOffset + 1);
-    //if retrieved data is empty, set hasMore to false
-    if (data.length === 0) {
-      setHasMore(false);
-    }
-    //add new data to the site and render it
-    //if there is a duplicate, it will be ignored
-    setData((prevData) => [...prevData, ...data]);
-    setIsLoading(false);
-  };
 
   const handleLoadMore = () => {
-    setIsLoading(true);
     console.log("offset", offset);
     apiCall();
   };

@@ -20,9 +20,9 @@ const LeftNav = ({ user }) => {
         <div className="w-2/6">
         <div className="text-xl sticky z-50 top-0">
             <div className="grid grid-cols-1 gap-4 content-between float-right mr-12">
-            <Link to="/" className="mt-5"># Winku</Link>
+            <Link to="/" className="mt-5"># winku</Link>
             <Link to="/about"># about</Link>
-            <Link to="/archive"># Archive</Link>
+            <Link to="/archive"># archive</Link>
             {isLogged ? (
                 <a href={`/${user.username}`}># {user.username}</a>
             ) : null}
