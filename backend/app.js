@@ -4,14 +4,12 @@ import postRouter from "./routes/post_route.js";
 import Associations from "./models/index.js";
 import { createUsers, createPosts, createComments } from "./seed.js";
 import cors from "cors";
+import corsOptions from "./config/corsOptions.js";
 
 import db from "./config/database.js";
 
 const app = express();
 
-const corsOptions = {
-  origin: "http://localhost:3000",
-};
 
 app.use(cors(corsOptions));
 

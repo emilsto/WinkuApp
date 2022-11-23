@@ -25,7 +25,6 @@ const PostBox = ( {user, addData}) => {
   const postToDatabase = async (e) => {
     //grab the token from local storage
     const token = localStorage.getItem("token");
-
     const response = await axios.post(POST_URL, JSON.stringify(post), {
       headers: { "Content-Type": "application/json", Authorization: token },
     });
@@ -69,25 +68,17 @@ const PostBox = ( {user, addData}) => {
 
   return (
     <div className="border-x border-t border-slate-300 p-4 w-full">
-      <div className="w-full h-120">
-        <div className="flex flex-row">
-          <img
-            className="rounded-full w-12 h-12"
+        <div className="flex flex-row py-2">
+        <img
+            className="rounded-full w-16 h-16"
             src={user.avatar}
             alt=""
-          ></img>
-          <div className="flex flex-col">
-            <div className="flex flex-row">
-              <p>@{user.username}</p>
-              <div></div>
-            </div>
-            <p className="text-gray-400">{user.bio}</p>
-          </div>
-        </div>
-        <form >
-          <div className="pt-6 text-center space-y-4">
+          >
+          </img>
+
             <textarea
-              className="text-m text-gray-900 bg-white-200 resize-none w-full"
+            
+              className="text-m text-gray-900 bg-white-200 resize-none w-full h-fit p-2 rounded-lg ml-2"
               name="content"
               id="content"
               value={post.content}
@@ -96,6 +87,7 @@ const PostBox = ( {user, addData}) => {
               maxLength="140"
               placeholder="What's on your mind?"
             ></textarea>
+            </div>
             <div className="flex flex-row justify-between">
               <p className="text-xs">
                 Concise messages are nice. Keep it short! Remaining characters:{" "}
@@ -108,14 +100,13 @@ const PostBox = ( {user, addData}) => {
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className="bg-purple-500 text-neutral-50 font-bold rounded-full p-2 text-xl inline-flex items-center py-2.5 px-4 focus:ring-4 focus:ring-blue-200  hover:bg-red-800"
+                className="bg-purple-500 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 focus:ring-4 focus:ring-blue-200  hover:bg-purple-800"
               >
                 Wingu!
               </button>
-            </div>
+
           </div>
-        </form>
-      </div>
+          
     </div>
   );
 };

@@ -7,12 +7,14 @@ import {
   getPostsByUserId,
   getPostsByUserName,
   getPostsByPage,
+  getEpicPosts,
 } from "../controllers/post.js";
 
 const router = express.Router();
 
 router.get("/posts", getPosts);
 router.get("/posts/top", getTopPostsComments);
+router.get("/posts/epic", getEpicPosts);
 router.post("/posts", createPost);
 router.get("/posts/:id", getPostById);
 router.get("/posts/id:id", getPostsByUserId);

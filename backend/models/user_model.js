@@ -35,6 +35,16 @@ const User = db.define("user", {
     allowNull: false,
     defaultValue: false,
   },
-});
+},
+{
+scopes: {
+  //default to not include password in the response
+  default: {
+    attributes: { exclude: ["password"] },
+  },
+},
+}
+
+);
 
 export default User;

@@ -6,11 +6,8 @@ const Utilitybar = ({ post }) => {
   return (
     <div className="flex flex-col my-2 ">
       <div className="flex flex-row">
-        <button className="bg-green-500 hover:bg-green-700 opacity-75 text-white py-1 px-2 rounded-l-xl">
+        <button className="bg-purple-500 hover:bg-purple-700 opacity-75 text-white py-1 px-2 rounded-l-xl">
           Cool {post.likes}
-        </button>
-        <button className="bg-red-500 hover:bg-red-700 opacity-75 text-white py-1 px-2 rounded-none">
-          Not cool {post.dislikes}
         </button>
         <button className="bg-blue-500 hover:bg-blue-700 opacity-75 text-white py-1 px-2 rounded-r-xl">
           Reply {post.dislikes}

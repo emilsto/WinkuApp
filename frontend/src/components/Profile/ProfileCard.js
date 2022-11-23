@@ -15,6 +15,11 @@ const ProfileCard = ({ user }) => {
     React.useEffect(() => {
         adminCheck();
     });
+
+    //if user object is empty, return null
+    if (Object.keys(user).length === 0) {
+        return null;
+    }
     
     return (
         <div className="flex flex-col items-center m-5">

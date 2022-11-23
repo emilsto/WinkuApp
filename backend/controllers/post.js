@@ -327,25 +327,41 @@ export const getPostsByUserId = async (req, res) => {
 export const getPostsByUserName = async (req, res) => {
   const username = req.params.username;
   try {
+  const usr = await User.findOne({
+    where: {
+      username: username,
+    },
+    attributes: ["id", "username", "bio", "image", "isAdmin"],
+  });
+  if (!usr) {
+    const error = new Error("User not found");
+    error.message = "User not found";
+    error.status = 404;
+    throw error;
+  } else {
+    console.log(usr);
     const posts = await Post.findAll({
+      where: {
+        userId: usr.id,
+      },
+      attributes: ["id", "content", "likes", "dislikes", "createdAt"],
       include: [
         {
           model: User,
-          where: {
-            username: username,
-          },
           attributes: ["username", "bio", "image", "isAdmin"],
         },
       ],
       order: ["createdAt"],
     });
-    res.send(posts);
-  } catch (error) {
-    res.status(500).send({
-      message: error.message || "Some error occurred while retrieving posts.",
-    });
+    res.send({posts: posts, user: usr});
   }
+} catch (error) {
+  res.status(error.status || 500).send({
+    message: error.message || "Some error occurred while retrieving posts.",
+  });
 }
+};
+
 
 //form posts to pages. 10 posts per page
 
@@ -353,7 +369,7 @@ export const getPostsByPage = async (req, res) => {
   const page = req.params.page;
   try {
     const posts = await Post.findAll({
-      attributes: ["id", "content", "likes", "dislikes", "createdAt"],
+      attributes: ["id", "content", "likes", "dislikes", "createdAt", "isEpic"],
       include: [
         {
           model: User,
@@ -363,6 +379,32 @@ export const getPostsByPage = async (req, res) => {
       order: [["createdAt", "DESC"]],
       limit: 10,
       offset: 10 * (page - 1),
+    });
+    res.send(posts);
+  } catch (error) {
+    res.status(500).send({
+      message: error.message || "Some error occurred while retrieving posts.",
+    });
+  }
+}
+
+//get all epic posts
+
+export const getEpicPosts = async (req, res) => {
+  try {
+    const posts = await Post.findAll({
+      where : {
+        isEpic : true
+      },
+      attributes: ["id", "content", "likes", "dislikes", "createdAt", "isEpic"],
+      include: [
+        {
+          model: User,
+          attributes: ["username", "bio", "image", "isAdmin"],
+        },
+      ],
+      order: [["createdAt", "DESC"]],
+      limit: 10,
     });
     res.send(posts);
   } catch (error) {

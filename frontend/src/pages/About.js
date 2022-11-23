@@ -35,7 +35,7 @@ const Team = () => {
 
 const About = () => {
   return (
-    <div className="flex flex-col m-5">
+    <div className="flex flex-col py-8">
       <p className="py-2">
         Winku (Whine) is a social media app that allows users to post messages
         and see other users messages. Just pick the users YOU want to follow and
@@ -45,7 +45,7 @@ const About = () => {
       <div className="flex flex-col">
         <h3 className="text-2xl font-bold">About the CEO</h3>
         <p className="py-2">
-          Emil Kantaneva, Creator, Founder, Chief Executive Officer of Winku.net, doesen't live, he <i>lives</i>. A fearless risk taker, this pioneer of Internet communications technology always strives to innovate the wrold around him, as well as innovate himself.
+          Emil Kantaneva, Creator, Founder, Chief Executive Officer of Winku.net, doesen't live, he <i>lives</i>. A fearless risk taker, this pioneer of Internet communications technology always strives to innovate the world around him, as well as innovate himself.
         </p>
         <p className="py-2">
           Born into a typical middle class family in the humble town of Lahti, Finland, Emil Kantaneva has struggled to overcome adversity. Despicte challges such as being born in Finland, Emil has managed to overcome these challenges and become the CEO of Winku.net.

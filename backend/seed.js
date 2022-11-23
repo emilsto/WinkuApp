@@ -71,6 +71,15 @@ export const createUsers = async () => {
       });
     }
   }
+  //create user with no posts
+  User.create({
+    username: "noPosts",
+    password: await bcrypt.hash("password", 10),
+    bio: "I have no posts and I wish Topi would fix that",
+    image: "https://avatars.githubusercontent.com/u/91017924?v=4",
+  });
+
+
 };
 
 // create comments

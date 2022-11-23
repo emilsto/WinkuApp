@@ -1,5 +1,7 @@
 //page that contains the login form. Or signup form if the user is new
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
+import AuthContext from "../context/AuthProvider";
 import axios from "../api/axios";
 
 const LOGIN_URL = "/api/login";
@@ -10,6 +12,8 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const { setAuth } = useContext(AuthContext);
+  const history = useHistory();
 
   //state for the error message
   const [error, setError] = useState("");
@@ -34,16 +38,14 @@ const Login = () => {
       setError("Please enter your username and password");
       return;
     }
-
-    // sign in the user
-
     try {
-      //send the login credentials to the server
       const response = await axios.post(LOGIN_URL, JSON.stringify(login), {
         headers: { "Content-Type": "application/json" },
+        withCredentials: true,
       });
       const token = response.data;
-      localStorage.setItem("token", token);
+
+      setAuth({ token });
       console.log(token);
 
       //clear the login form
@@ -51,8 +53,9 @@ const Login = () => {
         username: "",
         password: "",
       });
-      //redirect to the home page
-      window.location.href = "/";
+      //push to the home page
+      history.push("/");
+
     } catch (error) {
       if (error?.response?.statusCode === 401) {
         setError("Invalid username or password");
@@ -63,14 +66,9 @@ const Login = () => {
       }
     }
   };
-
   return (
-    <div className="flex flex-col w-full m-5">
-      <h1 className="text-4xl font-bold">Login</h1>
-      <div className="flex flex-col border border-slate-400 p-2 my-2">
-        <div className="flex flex-col">
-          <div className="flex flex-col">
-            <label className="text-xl">Username</label>
+    <div className="flex flex-col m-5">
+            <label className="text-xl my-2">Username</label>
             <input
               className="border border-slate-400 p-2"
               type="text"
@@ -78,9 +76,7 @@ const Login = () => {
               value={login.username}
               onChange={handleChange}
             ></input>
-          </div>
-          <div className="flex flex-col mt-2">
-            <label className="text-xl">Password</label>
+            <label className="text-xl mt-2">Password</label>
             <input
               className="border border-slate-400 p-2"
               type="password"
@@ -88,21 +84,16 @@ const Login = () => {
               value={login.password}
               onChange={handleChange}
             ></input>
-          </div>
-          <div className="flex flex-col mt-2">
-            <p className="text-red-600">{error}</p>
+            <p className="text-red-600 mt-2">{error}</p>
             <button
-              className="bg-red-600 text-white p-2 rounded-md hover:bg-red-700"
+              className="bg-purple-500 text-white p-2 rounded-md hover:bg-purple-700"
               onClick={handleSubmit}
             >
               Login
             </button>
             <p className="text-gray-400 text-sm mt-2">
-              Don't have an account? Sign up <a href="/signup">here</a>
+              Don't have an account? Sign up <Link to="/signup" className="underline hover:text-gray-800">here</Link>
             </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
