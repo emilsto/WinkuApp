@@ -137,8 +137,15 @@ export const loginUser = async (req, res) => {
       },
     };
 
+    //remove password , id and bio from user object
+    delete user.dataValues.password;
+    delete user.dataValues.id;
+    delete user.dataValues.bio;
+
+    console.log(user);
+
     const token = jwt.sign(payload, process.env.TOKEN_SECRET);
-    res.cookie("auth-token", token).send(token);
+    res.cookie("auth_token", token).send({ user: user, token: token });
     console.log("User logged in successfully!");
   } catch (error) {
     console.log(error);
@@ -179,5 +186,25 @@ export const getUserById = async (req, res) => {
     res.status(500).send({
       message: error.message || "Some error occurred while retrieving user.",
     });
+  }
+};
+
+//checlk if user is logged in
+export const isLoggedIn = async (req, res) => {
+  const token = req.body.token;
+  console.log(token);
+  if (!token) {
+    return res.status(401).send("Access Denied");
+  } else {
+    try {
+      const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+      const user = verified.user;
+      console.log(user);
+
+      res.send({ token: token, user: user });
+    } catch (error) {
+      res.status(400).send(false);
+      console.log(error);
+    }
   }
 };

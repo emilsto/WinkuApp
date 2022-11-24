@@ -327,41 +327,40 @@ export const getPostsByUserId = async (req, res) => {
 export const getPostsByUserName = async (req, res) => {
   const username = req.params.username;
   try {
-  const usr = await User.findOne({
-    where: {
-      username: username,
-    },
-    attributes: ["id", "username", "bio", "image", "isAdmin"],
-  });
-  if (!usr) {
-    const error = new Error("User not found");
-    error.message = "User not found";
-    error.status = 404;
-    throw error;
-  } else {
-    console.log(usr);
-    const posts = await Post.findAll({
+    const usr = await User.findOne({
       where: {
-        userId: usr.id,
+        username: username,
       },
-      attributes: ["id", "content", "likes", "dislikes", "createdAt"],
-      include: [
-        {
-          model: User,
-          attributes: ["username", "bio", "image", "isAdmin"],
-        },
-      ],
-      order: ["createdAt"],
+      attributes: ["id", "username", "bio", "image", "isAdmin"],
     });
-    res.send({posts: posts, user: usr});
+    if (!usr) {
+      const error = new Error("User not found");
+      error.message = "User not found";
+      error.status = 404;
+      throw error;
+    } else {
+      console.log(usr);
+      const posts = await Post.findAll({
+        where: {
+          userId: usr.id,
+        },
+        attributes: ["id", "content", "likes", "dislikes", "createdAt"],
+        include: [
+          {
+            model: User,
+            attributes: ["username", "bio", "image", "isAdmin"],
+          },
+        ],
+        order: ["createdAt"],
+      });
+      res.send({ posts: posts, user: usr });
+    }
+  } catch (error) {
+    res.status(error.status || 500).send({
+      message: error.message || "Some error occurred while retrieving posts.",
+    });
   }
-} catch (error) {
-  res.status(error.status || 500).send({
-    message: error.message || "Some error occurred while retrieving posts.",
-  });
-}
 };
-
 
 //form posts to pages. 10 posts per page
 
@@ -386,15 +385,15 @@ export const getPostsByPage = async (req, res) => {
       message: error.message || "Some error occurred while retrieving posts.",
     });
   }
-}
+};
 
 //get all epic posts
 
 export const getEpicPosts = async (req, res) => {
   try {
     const posts = await Post.findAll({
-      where : {
-        isEpic : true
+      where: {
+        isEpic: true,
       },
       attributes: ["id", "content", "likes", "dislikes", "createdAt", "isEpic"],
       include: [
@@ -412,4 +411,4 @@ export const getEpicPosts = async (req, res) => {
       message: error.message || "Some error occurred while retrieving posts.",
     });
   }
-}
+};

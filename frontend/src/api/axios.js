@@ -7,6 +7,3 @@ export default axios.create({
 export const getPosts = (offset) => {
   return axios.get(`/api/posts/5/${offset}`);
 };
-
-
-

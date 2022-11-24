@@ -10,7 +10,6 @@ import db from "./config/database.js";
 
 const app = express();
 
-
 app.use(cors(corsOptions));
 
 app.use(express.json());

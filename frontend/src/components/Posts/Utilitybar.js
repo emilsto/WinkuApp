@@ -2,7 +2,6 @@
 import React from "react";
 
 const Utilitybar = ({ post }) => {
-  
   return (
     <div className="flex flex-col my-2 ">
       <div className="flex flex-row">

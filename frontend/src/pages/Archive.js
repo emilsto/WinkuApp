@@ -8,18 +8,16 @@ const Archive = () => {
   //epic post dummy data
   const [data, setData] = useState([]);
   useEffect(() => {
-
     const getEpicPosts = async () => {
       try {
         const res = await axios.get(`http://localhost:4000/api/posts/epic`);
         const data = res.data;
         setData(data);
-      }
-      catch (error) {
+      } catch (error) {
         console.log("error");
       }
-    }
-    getEpicPosts(); 
+    };
+    getEpicPosts();
   }, []);
 
   return (
@@ -28,11 +26,7 @@ const Archive = () => {
         This is where all the cool posts go to die. Post epic, get pinned. Epic
         posts deserve EPIC rewards.
       </p>
-      {data.length === 0 ? (
-        <PostSkeleton />
-      ) : (
-        <Posts data={data} />
-      )}
+      {data.length === 0 ? <PostSkeleton /> : <Posts data={data} />}
     </div>
   );
 };

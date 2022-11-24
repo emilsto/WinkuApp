@@ -21,12 +21,6 @@ router.get("/posts/id:id", getPostsByUserId);
 router.get("/posts/pages/:page", getPostsByPage);
 router.get("/profile/:username", getPostsByUserName);
 
-
-
-
-
 //route order matters, so put static routes at the top
-
-
 
 export default router;
