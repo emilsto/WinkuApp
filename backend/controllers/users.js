@@ -134,6 +134,7 @@ export const loginUser = async (req, res) => {
         username: user.username,
         bio: user.bio,
         image: user.image,
+        isAdmin: user.isAdmin,
       },
     };
 

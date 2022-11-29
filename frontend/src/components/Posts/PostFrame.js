@@ -19,6 +19,7 @@ const PostFrame = ({ post }) => {
     adminCheck();
   });
 
+
   //format the date
   const date = new Date(post.createdAt);
   const options = {

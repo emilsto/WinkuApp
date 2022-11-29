@@ -32,11 +32,10 @@ const FrontPage = () => {
       //if there is a duplicate, it will be ignored
       setData((prevData) => [...prevData, ...data]);
     } catch (error) {
-      console.log(error);
     }
   };
 
-  //check if user is logged in via local storage and do the initial fetch
+  //check if user is logged in via local storage
   useEffect(() => {
     if (auth.token) {
       setIsLogged(true);
@@ -44,7 +43,6 @@ const FrontPage = () => {
   }, [auth.token]);
 
   const handleLoadMore = () => {
-    console.log("offset", offset);
     apiCall();
   };
 

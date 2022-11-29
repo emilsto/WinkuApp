@@ -3,7 +3,6 @@ import React from "react";
 import PostFrame from "./PostFrame";
 
 const Posts = ({ data }) => {
-  //reverse the data so that the newest posts are at the top
 
   return (
     <div className="flex flex-col">

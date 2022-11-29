@@ -9,23 +9,26 @@ const PostBox = ({ user, addData }) => {
   //set up state for the post
   const [post, setPost] = useState({
     content: "",
-    createdAt: new Date().toISOString(),
-    id: Math.floor(100000000000 + Math.random() * 900000000000),
-    user: {
-      username: user.username,
-      image: user.image,
-      bio: user.bio,
-      isAdmin: true,
-    },
-  });
+    });
+
 
   const postToDatabase = async (e) => {
     //grab the token from local storage
     const token = localStorage.getItem("token");
+    try {
     const response = await axios.post(POST_URL, JSON.stringify(post), {
       headers: { "Content-Type": "application/json", Authorization: token },
     });
-    console.log(response);
+    //add the post to the database
+    addData(response.data);
+    //clear the post box
+    setPost({
+      content: "",
+      });
+    } catch (error) {
+      console.log("Whoops, something went wrong");
+      console.log(error);
+    }
     //reload the posts component
   };
   //text counter for the post
@@ -47,23 +50,11 @@ const PostBox = ({ user, addData }) => {
     e.preventDefault();
     postToDatabase();
     //add user data to the post
-    addData(post);
     //set post data back to default
-    setPost({
-      content: "",
-      createdAt: new Date().toISOString(),
-      id: Math.floor(100000000000 + Math.random() * 900000000000),
-      user: {
-        username: user.username,
-        image: user.avatar,
-        bio: user.bio,
-        isAdmin: true,
-      },
-    });
   };
 
   return (
-    <div className="border-x border-t border-slate-300 p-4 w-full">
+    <div className="border-x border-y border-slate-300 p-4 w-full bg-white" >
       <div className="flex flex-row py-2">
         <img className="rounded-full w-16 h-16" src={user.image} alt=""></img>
 
@@ -90,7 +81,7 @@ const PostBox = ({ user, addData }) => {
         <button
           type="submit"
           onClick={handleSubmit}
-          className="bg-purple-500 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 focus:ring-4 focus:ring-blue-200  hover:bg-purple-800"
+          className="bg-purple-500 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-purple-800"
         >
           Wingu!
         </button>

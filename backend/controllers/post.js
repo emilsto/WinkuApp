@@ -26,18 +26,32 @@ export const createPost = async (req, res) => {
   const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
   console.log(decoded.user);
 
+  //get user
+
   // Create a Post
-  const post = {
+  const newPost = {
     content: req.body.content,
     likes: 0,
     dislikes: 0,
     userId: decoded.user.id,
   };
+  const user = {
+      username: decoded.user.username,
+      image: decoded.user.image,
+      bio: decoded.user.bio,
+      isAdmin: decoded.user.isAdmin,
+  }
 
   // Save Post in the database
   try {
-    const newPost = await Post.create(post);
-    res.send(newPost);
+    let post = await Post.create(newPost);
+    //add new field to post
+    post.dataValues.user = user;
+    //update the post date to current date
+    post.dataValues.createdAt = new Date().toISOString();
+
+
+    res.status(201).send(post);
     console.log("Post created successfully!");
   } catch (error) {
     res.status(500).send({
@@ -146,6 +160,7 @@ export const deletePost = async (req, res) => {
 
 export const likePost = async (req, res) => {
   const id = req.params.id;
+  console.log("LIKE A POST");
 
   try {
     const post = await Post.findByPk(id);
