@@ -35,6 +35,7 @@ export const createPost = async (req, res) => {
     dislikes: 0,
     userId: decoded.user.id,
   };
+  
   const user = {
       username: decoded.user.username,
       image: decoded.user.image,
@@ -427,3 +428,44 @@ export const getEpicPosts = async (req, res) => {
     });
   }
 };
+
+//get post by username and post id
+
+export const getPostByUserNameAndId = async (req, res) => {
+  const username = req.params.username;
+  const id = req.params.id;
+  try {
+    const usr = await User.findOne({
+      where: {
+        username: username,
+      },
+      attributes: ["id", "username", "bio", "image", "isAdmin"],
+    });
+    if (!usr) {
+      const error = new Error("User not found");
+      error.message = "User not found";
+      error.status = 404;
+      throw error;
+    } else {
+      const post = await Post.findOne({
+        where: {
+          id: id,
+          userId: usr.id,
+        },
+        attributes: ["id", "content", "likes", "dislikes", "createdAt"],
+        include: [
+          {
+            model: User,
+            attributes: ["username", "bio", "image", "isAdmin"],
+          },
+        ],
+        order: ["createdAt"],
+      });
+      res.send({ post: post, user: usr });
+    }
+  } catch (error) {
+    res.status(error.status || 500).send({
+      message: error.message || "Some error occurred while retrieving posts.",
+    });
+  }
+}

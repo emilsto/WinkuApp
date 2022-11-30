@@ -3,9 +3,8 @@ import React from "react";
 import PostFrame from "./PostFrame";
 
 const Posts = ({ data }) => {
-
   return (
-    <div className="flex flex-col">
+    <div className="flex-col">
       {data.map((data) => (
         <PostFrame key={data.id} post={data} />
       ))}

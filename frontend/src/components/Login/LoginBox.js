@@ -2,7 +2,6 @@
 import { Link } from "react-router-dom";
 
 const LoginBox = (props) => {
-  
   return (
     <div className="flex flex-col m-5">
       <label className="text-xl my-2">Username</label>
@@ -18,7 +17,7 @@ const LoginBox = (props) => {
         className="border border-slate-400 p-2"
         type="password"
         name="password"
-        value={props.login.password} 
+        value={props.login.password}
         onChange={props.handleChange}
       ></input>
       <p className="text-red-600 mt-2">{props.error}</p>

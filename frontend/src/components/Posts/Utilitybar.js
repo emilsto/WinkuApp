@@ -1,10 +1,8 @@
 //utility bar for each post, containing the like, dislike and comment buttons
-import {useState} from "react";
+import { useState } from "react";
 import axios from "../../api/axios";
 
-
 const Utilitybar = ({ post }) => {
-
   //state for the like button
   const [like, setLike] = useState(post.likes);
   // set likes to the number of likes the post has
@@ -16,21 +14,18 @@ const Utilitybar = ({ post }) => {
       axios.put(`/api/posts/like/${post.id}`);
       setLike(like + 1);
       console.log("like");
-
     } catch (error) {
       console.log(error);
     }
-   
   };
-
-
 
   return (
     <div className="flex flex-col my-2 ">
       <div className="flex flex-row">
-        <button className="bg-purple-500 hover:bg-purple-700 opacity-75 text-white py-1 px-2 rounded-l-xl"
+        <button
+          className="bg-purple-500 hover:bg-purple-700 opacity-75 text-white py-1 px-2 rounded-l-xl"
           onClick={handleLike}
-          >
+        >
           Cool {post.likes}
         </button>
         <button className="bg-blue-500 hover:bg-blue-700 opacity-75 text-white py-1 px-2 rounded-r-xl">

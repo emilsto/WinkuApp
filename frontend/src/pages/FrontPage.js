@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Posts from "../components/Posts/Posts";
 import PostBox from "../components/Posts/PostBox";
@@ -31,16 +31,26 @@ const FrontPage = () => {
       //add new data to the site and render it
       //if there is a duplicate, it will be ignored
       setData((prevData) => [...prevData, ...data]);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
+  const inititialFetch = useCallback(async () => {
+    try {
+      const res = await axios.get("http://localhost:4000/api/posts/pages/1");
+      const data = res.data;
+      setOffset((prevOffset) => prevOffset + 1);
+      setData(data);
+    } catch (error) {}
+  }, []);
+
   //check if user is logged in via local storage
+  //calling a function inside useEffect, useCallBack
   useEffect(() => {
     if (auth.token) {
       setIsLogged(true);
     }
-  }, [auth.token]);
+    inititialFetch();
+  }, [auth.token, inititialFetch]);
 
   const handleLoadMore = () => {
     apiCall();

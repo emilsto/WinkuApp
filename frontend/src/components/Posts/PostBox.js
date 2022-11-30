@@ -9,21 +9,20 @@ const PostBox = ({ user, addData }) => {
   //set up state for the post
   const [post, setPost] = useState({
     content: "",
-    });
-
+  });
 
   const postToDatabase = async (e) => {
     //grab the token from local storage
     const token = localStorage.getItem("token");
     try {
-    const response = await axios.post(POST_URL, JSON.stringify(post), {
-      headers: { "Content-Type": "application/json", Authorization: token },
-    });
-    //add the post to the database
-    addData(response.data);
-    //clear the post box
-    setPost({
-      content: "",
+      const response = await axios.post(POST_URL, JSON.stringify(post), {
+        headers: { "Content-Type": "application/json", Authorization: token },
+      });
+      //add the post to the database
+      addData(response.data);
+      //clear the post box
+      setPost({
+        content: "",
       });
     } catch (error) {
       console.log("Whoops, something went wrong");
@@ -54,7 +53,7 @@ const PostBox = ({ user, addData }) => {
   };
 
   return (
-    <div className="border-x border-y border-slate-300 p-4 w-full bg-white" >
+    <div className="border-x border-y border-slate-300 p-4 w-full bg-white">
       <div className="flex flex-row py-2">
         <img className="rounded-full w-16 h-16" src={user.image} alt=""></img>
 
@@ -70,7 +69,7 @@ const PostBox = ({ user, addData }) => {
         ></textarea>
       </div>
       <div className="flex flex-row justify-between">
-        <p className="text-xs">
+        <p className="text-xs text-black">
           Concise messages are nice. Keep it short! Remaining characters:{" "}
           {count <= 20 ? (
             <span className="text-red-500">{count}</span>

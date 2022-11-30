@@ -13,9 +13,9 @@ import {
 const router = express.Router();
 
 router.get("/users", getUsers);
+router.post("/create", createUser);
 router.post("/auth/check", isLoggedIn);
 router.get("/users/:id", getUserById);
-router.post("/create", createUser);
 router.put("/users/:id", updateUser);
 router.delete("/users/:id", deleteUser);
 router.post("/login", loginUser);

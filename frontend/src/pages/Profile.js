@@ -41,7 +41,7 @@ const Profile = () => {
           <ProfileCard user={user} /> <Posts data={data} />{" "}
         </div>
       )}
-      {data.length < 2 && !error ? (
+      {data.length < 1 && !error ? (
         <div className="py-5 text-center">
           <p className="text-3xl font-bold">@{username} hasn’t Wikissyt</p>
           <p className="text-gray-400">

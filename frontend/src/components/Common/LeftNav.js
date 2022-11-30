@@ -12,7 +12,6 @@ const user = {
   isAdmin: true,
 };
 
-
 const LeftNav = () => {
   //get useAuth hook
   const { auth } = useAuth();
@@ -60,13 +59,16 @@ const LeftNav = () => {
           )}
           {isLogged ? null : <Link to="/signup"># signup</Link>}
           <div className="hover:text-purple-600">
-            <button className="bg-purple-500 hover:text-slate-500 text-white font-bold px-8 py-2 rounded-full"
-            onClick={showModalHandler}
+            <button
+              className="bg-purple-500 hover:text-slate-500 text-white font-bold px-8 py-2 rounded-full"
+              onClick={showModalHandler}
             >
-              Wingu 
+              Wingu
             </button>
             {showModal ? <Backdrop onClick={hideModalHandler} /> : null}
-            {showModal ? <Modal onClick={hideModalHandler} user={user} /> : null}
+            {showModal ? (
+              <Modal onClick={hideModalHandler} user={user} />
+            ) : null}
           </div>
         </div>
       </div>

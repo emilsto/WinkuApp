@@ -19,7 +19,6 @@ const PostFrame = ({ post }) => {
     adminCheck();
   });
 
-
   //format the date
   const date = new Date(post.createdAt);
   const options = {
@@ -30,15 +29,15 @@ const PostFrame = ({ post }) => {
     hour: "numeric",
     minute: "numeric",
   };
-
+  
   const formattedDate = date.toLocaleDateString("fi-FI", options);
 
-  return (
+  return ( 
     <div
       key={post.id}
-      className="flex-col border-t border-x border-slate-300 rounded-none p-4 w-full min-w-full hover:bg-slate-50"
+      className="flex-col border-t border-x border-slate-300 rounded-none p-4 hover:bg-slate-200"
     >
-      <div className="flex m-0">
+      <div className="flex">
         <img
           className="rounded-full w-12 h-12 hover:opacity-75"
           src={post.user.image}

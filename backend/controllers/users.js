@@ -26,12 +26,15 @@ export const createUser = async (req, res) => {
     return;
   }
 
+  //set default image
+  const defaultImage = "https://i.pravatar.cc/300";
+
   // Create a User
   const user = {
     username: req.body.username,
     password: req.body.password,
-    //bio: req.body.bio,
-    //image: req.body.image,
+    bio: "update your bio",
+    image: defaultImage,
   };
 
   // hash password
@@ -99,7 +102,7 @@ export const loginUser = async (req, res) => {
   try {
     if (!req.body.username || !req.body.password) {
       const error = new Error("Username or password is missing");
-      error.statusCode = 401;
+      error.status = 401;
       throw error;
     }
 
@@ -107,7 +110,7 @@ export const loginUser = async (req, res) => {
     const user = await User.findOne({ where: { username: req.body.username } });
     if (!user) {
       const error = new Error("Username does not exist");
-      error.statusCode = 401;
+      error.status = 401;
       throw error;
     }
 
@@ -121,7 +124,7 @@ export const loginUser = async (req, res) => {
     );
     if (!validPassword) {
       const error = new Error("Password is incorrect");
-      error.statusCode = 401;
+      error.status = 401;
       throw error;
     }
     //create and assign a token

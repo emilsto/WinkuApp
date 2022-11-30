@@ -28,7 +28,7 @@ const App = () => {
     <div>
       <div className="flex">
         <LeftNav />
-        <div className="w-2/6 justify-center">
+        <div className="w-2/6 justify-center max-w-md">
           <ScrollToTop>
             <NavBar />
             <Switch>
