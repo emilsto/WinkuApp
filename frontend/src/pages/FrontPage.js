@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Posts from "../components/Posts/Posts";
 import PostBox from "../components/Posts/PostBox";
-import LoadingPosts from "../components/Posts/PostSkeleton";
+import Spinner from "../components/Common/Spinner";
 import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 
@@ -61,13 +61,13 @@ const FrontPage = () => {
   };
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col">
       {isLogged ? <PostBox user={auth.user} addData={addData} /> : null}
       <InfiniteScroll
         dataLength={data.length}
         next={handleLoadMore}
         hasMore={hasMore}
-        loader={<LoadingPosts />}
+        loader={<Spinner />}
         endMessage={
           <div className="flex flex-col justify-items-center text-center border-t border-slate-200">
             <p className="text-purple-500 text-3xl font-bold m-5">D:</p>

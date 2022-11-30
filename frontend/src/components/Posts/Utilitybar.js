@@ -4,31 +4,32 @@ import axios from "../../api/axios";
 
 const Utilitybar = ({ post }) => {
   //state for the like button
-  const [like, setLike] = useState(post.likes);
+  const [likes, setLikes] = useState(post.likes);
   // set likes to the number of likes the post has
 
   //handle like button
-  const handleLike = (e) => {
+  const handleLike = async (e) => {
     //send like to the server
     try {
       axios.put(`/api/posts/like/${post.id}`);
-      setLike(like + 1);
-      console.log("like");
+      //reload the page
     } catch (error) {
       console.log(error);
+      return;
     }
+    setLikes(likes + 1);
   };
 
   return (
     <div className="flex flex-col my-2 ">
       <div className="flex flex-row">
         <button
-          className="bg-purple-500 hover:bg-purple-700 opacity-75 text-white py-1 px-2 rounded-l-xl"
+          className="bg-purple-500 hover:bg-purple-700 opacity-75 text-white py-1 px-2 rounded-l-xl w-20"
           onClick={handleLike}
         >
-          Cool {post.likes}
+          Cool {likes}
         </button>
-        <button className="bg-blue-500 hover:bg-blue-700 opacity-75 text-white py-1 px-2 rounded-r-xl">
+        <button className="bg-blue-500 hover:bg-blue-700 opacity-75 text-white py-1 px-2 rounded-r-xl w-20">
           Reply {post.dislikes}
         </button>
       </div>
