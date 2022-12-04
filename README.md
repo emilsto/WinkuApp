@@ -50,10 +50,11 @@
 ## ToDos
 
 - [ ] Secure backend routes
-- [ ] Refactor backend and frontend code
+- [ ] Refactor backend code
 - [ ] Add more features
 - [ ] Add tests
 - [ ] Add more documentation
+- [ ] responsive design for mobile
 
 ## What is the purpose of this project?
 
@@ -66,9 +67,3 @@
 ## Authors
 
 - [@emilsto](https://www.github.com/emilsto)
-
-## Roadmap
-
-- Mobile support
-
-- Make it useable
