@@ -58,7 +58,7 @@
 
 ## What is the purpose of this project?
 
-- Experiment with new fullstack technologies
+- Experiment with new fullstack technologies, user authentication with JWT tokens and custom hooks, and to improve my skills in React, Node.js, Express, and MySQL.
 
 ## Badges
 
