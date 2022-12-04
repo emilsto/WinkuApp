@@ -5,7 +5,7 @@ import axios from "../../api/axios";
 
 const POST_URL = "/api/posts";
 
-const PostBox = ({ user, addData }) => {
+const PostBox = ( {user, addData}) => {
   //set up state for the post
   const [post, setPost] = useState({
     content: "",
@@ -35,6 +35,7 @@ const PostBox = ({ user, addData }) => {
   const [count, setCount] = useState(140);
   const handleCount = (e) => {
     setCount(140 - e.target.value.length);
+    console.log(user.user);
   };
 
   //handle change for the post
@@ -56,7 +57,6 @@ const PostBox = ({ user, addData }) => {
     <div className="border-x border-y border-slate-300 p-4 w-full bg-white">
       <div className="flex flex-row py-2">
         <img className="rounded-full w-16 h-16" src={user.image} alt=""></img>
-
         <textarea
           className="text-m text-gray-900 bg-white-200 resize-none w-full h-fit p-2 rounded-lg ml-2"
           name="content"

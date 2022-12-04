@@ -26,9 +26,9 @@ const App = () => {
 
   return (
     <div>
-      <div className="flex">
+      <div className="flex justifcy-center">
         <LeftNav />
-        <div className="w-2/6 justify-center max-w-md">
+        <div className="w-3/6 max-w-xl">
           <ScrollToTop>
             <NavBar />
             <Switch>

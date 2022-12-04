@@ -56,8 +56,8 @@ const FrontPage = () => {
     apiCall();
   };
 
-  const addData = (param) => {
-    setData((prevData) => [param, ...prevData]);
+  const addData = (addData) => {
+    setData((prevData) => [addData, ...prevData]);
   };
 
   return (

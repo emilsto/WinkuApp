@@ -5,13 +5,6 @@ import useAuth from "../../hooks/useAuth";
 import Backdrop from "./Backdrop";
 import Modal from "./Modal";
 
-const user = {
-  username: "testuser",
-  image: "https://i.imgur.com/8Km9tLL.png",
-  bio: "I'm a test user",
-  isAdmin: true,
-};
-
 const LeftNav = () => {
   //get useAuth hook
   const { auth } = useAuth();
@@ -19,10 +12,13 @@ const LeftNav = () => {
   //set up state for the login
   const [isLogged, setIsLogged] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [user, setUser] = useState({});
+
 
   const loggedInCheck = () => {
     if (auth.token) {
       setIsLogged(true);
+      setUser(auth.user);
     } else {
       setIsLogged(false);
     }

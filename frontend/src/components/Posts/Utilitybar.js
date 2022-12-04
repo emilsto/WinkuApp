@@ -8,7 +8,7 @@ const Utilitybar = ({ post }) => {
   // set likes to the number of likes the post has
 
   //handle like button
-  const handleLike = async (e) => {
+  const handleLike = async () => {
     //send like to the server
     try {
       axios.put(`/api/posts/like/${post.id}`);
