@@ -1,6 +1,6 @@
 # WinkuApp
 
-What it is? Three points.
+## What it is?
 
 - A simple twitter clone
 - A fullstack app
@@ -16,7 +16,7 @@ What it is? Three points.
 - Open `localhost:3000` in your browser
 - Enjoy!
 
-## What features does it and will it have? (X means done)
+## What features does it and will it have?
 
 - [X] Login
 - [X] Register
@@ -46,6 +46,14 @@ What it is? Three points.
 - MySQL
 - Docker
 - Sequelize
+
+## ToDos
+
+- [ ] Secure backend routes
+- [ ] Refactor backend and frontend code
+- [ ] Add more features
+- [ ] Add tests
+- [ ] Add more documentation
 
 ## What is the purpose of this project?
 
