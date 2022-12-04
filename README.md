@@ -4,7 +4,7 @@ What it is? Three points.
 
 - A simple twitter clone
 - A fullstack app
-- A Place for wining
+- A Place for whining
 
 ## Badges
 
