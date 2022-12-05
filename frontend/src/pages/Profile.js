@@ -6,13 +6,30 @@ import ProfileSkeleton from "../components/Profile/ProfileSkeleton";
 import Posts from "../components/Posts/Posts";
 import PostSkeleton from "../components/Posts/PostSkeleton";
 import axios from "../api/axios";
+import Settings from "../components/Profile/Settings";
+import useAuth from "../hooks/useAuth"; 
 
 const Profile = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [user, setUser] = useState({});
+  const { auth } = useAuth();
   const { username } = useParams();
+
+  const handleSubmit =  async (e) => {
+    e.preventDefault();
+    // Update user's settings in the database
+    try {
+      //do the axios call
+    } catch (error) {
+      console.error(error);
+    }
+    
+  };
+  console.log("sent data: ", data);
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +46,9 @@ const Profile = () => {
     fetchData();
   }, [username]);
 
+
+
+
   return (
     <div>
       {loading ? (
@@ -38,7 +58,11 @@ const Profile = () => {
       ) : (
         <div>
           {" "}
-          <ProfileCard user={user} /> <Posts data={data} />{" "}
+          <ProfileCard user={user} />
+          {auth.token && auth.user.username === username ? (
+            <Settings user={user} handleSubmit={handleSubmit} />
+          ) : null}
+          <Posts data={data} />{" "}
         </div>
       )}
       {data.length < 1 && !error ? (

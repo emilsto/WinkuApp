@@ -18,6 +18,16 @@ const Associations = () => {
   });
   Relationship.belongsTo(User, {});
 
+  /*
+  //post has many likes, like belongs to post with postId
+  Post.hasMany(Like, {
+    foreignKey: "postId",
+    as: "likes",
+  });
+  Like.belongsTo(Post, {});
+  */
+
+
   // comment belongs to user with userId
   User.hasMany(Comment, {
     foreignKey: "userId",
@@ -31,6 +41,9 @@ const Associations = () => {
     as: "comments",
   });
   Comment.belongsTo(Post, {});
+
+  
+
 };
 
 export default Associations;

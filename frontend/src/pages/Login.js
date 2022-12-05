@@ -10,6 +10,11 @@ import axios from "../api/axios";
 const LOGIN_URL = "/api/login";
 
 const Login = () => {
+  //dont let the user see this page if they are already logged in
+  const { auth } = useContext(AuthContext);
+  
+
+
   //set up state for the login form
   const [login, setLogin] = useState({
     username: "",
@@ -18,6 +23,9 @@ const Login = () => {
   const { setAuth } = useContext(AuthContext);
   const history = useHistory();
 
+  if (auth.token) {
+    history.push("/");
+  }
   //state for the error message
   const [error, setError] = useState("");
   //error message ref

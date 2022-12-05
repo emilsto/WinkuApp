@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 
 //pages
 import FrontPage from "./pages/FrontPage";
@@ -24,13 +24,16 @@ import CheckAuth from "./helpers/CheckAuth";
 const App = () => {
   CheckAuth();
 
+  const location = useLocation();
+
   return (
     <div>
-      <div className="flex justifcy-center">
+      <div className="flex j">
         <LeftNav />
         <div className="w-3/6 max-w-xl">
           <ScrollToTop>
-            <NavBar />
+          {/* Pass the current page URL to the NavBar component as a prop */}
+          <NavBar currentUrl={location.pathname} />
             <Switch>
               <Route path="/" exact component={FrontPage} />
               <Route path="/about" component={About} />
