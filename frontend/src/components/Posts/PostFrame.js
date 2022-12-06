@@ -13,7 +13,6 @@ const PostFrame = ({ post, showUtilityBar }) => {
     if (post.user.isAdmin) {
       setIsAdmin(true);
     }
-    console.log(post);
   };
 
   React.useEffect(() => {

@@ -57,7 +57,7 @@ const FrontPage = () => {
 
   return (
     <div className="flex flex-col">
-      {auth.isLogged ? <PostBox user={auth.user} addData={addData} /> : null}
+      {auth.isLogged ? <PostBox user={auth.user} addData={addData} from={"home"} /> : null}
       <InfiniteScroll
         dataLength={data.length}
         next={handleLoadMore}

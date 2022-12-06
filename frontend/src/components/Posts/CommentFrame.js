@@ -4,6 +4,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CommentFrame = ({ comment }) => {
+
+    console.log("comment frame", comment);
   const date = new Date(comment.createdAt);
   const options = {
     weekday: "short",

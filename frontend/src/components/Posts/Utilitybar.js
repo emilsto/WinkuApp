@@ -42,7 +42,6 @@ const Utilitybar = ({ post }) => {
         </button>
       </div>
       <div className="py-2"></div>
-      {post.likes > 0 ? (
         <div className="flex flex-row">
           <Link
             to={`/${post.user.username}/${post.id}`}
@@ -51,7 +50,6 @@ const Utilitybar = ({ post }) => {
             Show thread
           </Link>
         </div>
-      ) : null}
       {/* display the error message if it is not null */}
       {error ? (
         <div className="text-red-600 font-bold text-sm">{error}</div>

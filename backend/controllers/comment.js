@@ -1,11 +1,12 @@
-import Post from "../models/post_model.js";
 import User from "../models/user_model.js";
 import Comment from "../models/comment_model.js";
-import sequelize from "../config/database.js";
+import jwt from "jsonwebtoken";
 
 // Create and Save a new Comment
 export const createComment = async (req, res) => {
   // Validate request
+
+  console.log(req.body);
   if (!req.body.content) {
     res.status(400).send({
       message: "Content can not be empty!",
@@ -23,12 +24,23 @@ export const createComment = async (req, res) => {
   const comment = {
     content: req.body.content,
     userId: decoded.user.id,
-    postId: req.params.postId,
+    postId: req.body.postId,
   };
 
+  const user = {
+    username: decoded.user.username,
+    image: decoded.user.image,
+    bio: decoded.user.bio,
+    isAdmin: decoded.user.isAdmin,
+  };
   // Save Comment in the database
   try {
-    const newComment = await Comment.create(comment);
+    let newComment = await Comment.create(comment);
+    //add current date to comment
+    newComment.dataValues.createdAt = new Date().toISOString();
+    //add user to comment
+    newComment.dataValues.user = user;
+
     res.send(newComment);
     console.log("Comment created successfully!");
   } catch (error) {

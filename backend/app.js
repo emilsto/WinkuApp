@@ -1,6 +1,7 @@
 import express from "express";
 import userRouter from "./routes/user_route.js";
 import postRouter from "./routes/post_route.js";
+import commentRouter from "./routes/comment_route.js";
 import Associations from "./models/index.js";
 import { createUsers, createPosts, createComments } from "./seed.js";
 import cors from "cors";
@@ -36,6 +37,7 @@ try {
 //routes
 app.use("/api/", userRouter);
 app.use("/api/", postRouter);
+app.use("/api/", commentRouter);
 //simple route
 app.get("/", (req, res) => {
   res.send("Hello World!");

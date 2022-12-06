@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 
-const PostBox = ({ user, addData }) => {
+const PostBox = ({ user, addData, from }) => {
   //set up state for the post
   const [post, setPost] = useState({
     content: "",
@@ -18,8 +18,8 @@ const PostBox = ({ user, addData }) => {
         content: "",
       });
   };
-  //text counter for the post
 
+  //text counter for the post
   const [count, setCount] = useState(140);
   const handleCount = (e) => {
     setCount(140 - e.target.value.length);
@@ -48,9 +48,9 @@ const PostBox = ({ user, addData }) => {
           id="content"
           value={post.content}
           onChange={handleChange}
-          onKeyUp={handleCount}
+          onKeyDown={handleCount}
           maxLength="140"
-          placeholder="What's on your mind?"
+          placeholder={from === "home" ? "What's on your mind?" : "Reply... "}
         ></textarea>
       </div>
       <div className="flex flex-row justify-between">
@@ -62,13 +62,23 @@ const PostBox = ({ user, addData }) => {
             <span>{count}</span>
           )}
         </p>
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          className="bg-purple-500 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-purple-800"
-        >
-          Wingu!
-        </button>
+        {from === "home" ? (
+<button
+         type="submit"
+         onClick={handleSubmit}
+         className="bg-purple-500 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-purple-800"
+       >
+Wingu!
+</button>
+) : (
+<button
+         type="submit"
+         onClick={handleSubmit}
+         className="bg-blue-500 opacity-75 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-blue-800"
+       >
+Comment
+</button>
+)}
       </div>
     </div>
   );
