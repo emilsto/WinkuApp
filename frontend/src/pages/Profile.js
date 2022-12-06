@@ -7,7 +7,7 @@ import Posts from "../components/Posts/Posts";
 import PostSkeleton from "../components/Posts/PostSkeleton";
 import axios from "../api/axios";
 import Settings from "../components/Profile/Settings";
-import useAuth from "../hooks/useAuth"; 
+import useAuth from "../hooks/useAuth";
 
 const Profile = () => {
   const [data, setData] = useState([]);
@@ -17,7 +17,7 @@ const Profile = () => {
   const { auth } = useAuth();
   const { username } = useParams();
 
-  const handleSubmit =  async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Update user's settings in the database
     try {
@@ -28,8 +28,6 @@ const Profile = () => {
     console.log("Settings updated");
   };
   console.log("sent data: ", data);
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,9 +43,6 @@ const Profile = () => {
     };
     fetchData();
   }, [username]);
-
-
-
 
   return (
     <div>

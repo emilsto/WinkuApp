@@ -19,8 +19,6 @@ const LeftNav = () => {
     });
   }, [auth]);
 
-  console.log(auth);
-
   const showModalHandler = () => {
     setShowModal(true);
   };

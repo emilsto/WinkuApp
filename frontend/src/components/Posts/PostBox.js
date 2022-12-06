@@ -1,11 +1,8 @@
 //component to handle posting to the database
 import React, { useState } from "react";
 
-import axios from "../../api/axios";
 
-const POST_URL = "/api/posts";
-
-const PostBox = ( {user, addData}) => {
+const PostBox = ({ user, addData }) => {
   //set up state for the post
   const [post, setPost] = useState({
     content: "",
@@ -13,29 +10,19 @@ const PostBox = ( {user, addData}) => {
 
   const postToDatabase = async (e) => {
     //grab the token from local storage
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.post(POST_URL, JSON.stringify(post), {
-        headers: { "Content-Type": "application/json", Authorization: token },
-      });
+    console.log(post)
       //add the post to the database
-      addData(response.data);
+      addData(post);
       //clear the post box
       setPost({
         content: "",
       });
-    } catch (error) {
-      console.log("Whoops, something went wrong");
-      console.log(error);
-    }
-    //reload the posts component
   };
   //text counter for the post
 
   const [count, setCount] = useState(140);
   const handleCount = (e) => {
     setCount(140 - e.target.value.length);
-    console.log(user.user);
   };
 
   //handle change for the post
@@ -49,8 +36,6 @@ const PostBox = ( {user, addData}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     postToDatabase();
-    //add user data to the post
-    //set post data back to default
   };
 
   return (

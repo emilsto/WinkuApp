@@ -1,7 +1,6 @@
 //basic navbar component
-const NavBar = ({currentUrl}) => {
-
-  let activeItem = currentUrl === '/' ? 'home' : currentUrl.slice(1);
+const NavBar = ({ currentUrl }) => {
+  let activeItem = currentUrl === "/" ? "home" : currentUrl.slice(1);
 
   const activeItemName = activeItem[0].toUpperCase() + activeItem.slice(1);
 

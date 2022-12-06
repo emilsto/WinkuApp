@@ -52,7 +52,7 @@ export const createUsers = async () => {
       password: await bcrypt.hash("password", 10),
       bio: "I am emilTheDev",
       image:
-        "https://avatars.githubusercontent.com/u/70722483?s=400&u=062dbb94384357152ec92a57e94c5614145687f6&v=4",
+        "https://avatars.githubusercontent.com/u/70722483?v=4",
       isAdmin: true,
     });
     for (let i = 0; i < 10; i++) {

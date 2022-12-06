@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Logout from "./pages/Logout";
 import Profile from "./pages/Profile";
+import Thread from "./pages/Thread";
 import FourOhFour from "./pages/FourOhFour";
 
 //nav, footer, and other components
@@ -32,8 +33,8 @@ const App = () => {
         <LeftNav />
         <div className="w-3/6 max-w-xl">
           <ScrollToTop>
-          {/* Pass the current page URL to the NavBar component as a prop */}
-          <NavBar currentUrl={location.pathname} />
+            {/* Pass the current page URL to the NavBar component as a prop */}
+            <NavBar currentUrl={location.pathname} />
             <Switch>
               <Route path="/" exact component={FrontPage} />
               <Route path="/about" component={About} />
@@ -41,6 +42,7 @@ const App = () => {
               <Route path="/login" component={Login} />
               <Route path="/logout" component={Logout} />
               <Route path="/signup" component={Signup} />
+              <Route path="/:username/:postId" component={Thread} />
               <Route path="/:username" component={Profile} />
               <Route path="*" component={FourOhFour} />
             </Switch>

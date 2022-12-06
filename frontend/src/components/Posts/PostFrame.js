@@ -7,12 +7,13 @@ import { Link } from "react-router-dom";
 
 //handle like and dislike buttons
 
-const PostFrame = ({ post }) => {
+const PostFrame = ({ post, showUtilityBar }) => {
   const [isAdmin, setIsAdmin] = React.useState(false);
   const adminCheck = () => {
     if (post.user.isAdmin) {
       setIsAdmin(true);
     }
+    console.log(post);
   };
 
   React.useEffect(() => {
@@ -29,13 +30,13 @@ const PostFrame = ({ post }) => {
     hour: "numeric",
     minute: "numeric",
   };
-  
+
   const formattedDate = date.toLocaleDateString("fi-FI", options);
 
-  return ( 
+  return (
     <div
       key={post.id}
-      className="flex-col border-t border-x border-slate-300 rounded-none p-4 hover:bg-slate-200"
+      className="flex-col border border-slate-300 rounded-none p-4 hover:bg-slate-200"
     >
       <div className="flex">
         <img
@@ -62,10 +63,15 @@ const PostFrame = ({ post }) => {
       <div className="max-w-220 mx-12">
         <p className="text-lg">{post.content}</p>
         <p className="pt-2">{formattedDate}</p>
-        <Utilitybar post={post} />
+        {showUtilityBar && <Utilitybar post={post} />}
       </div>
     </div>
   );
+};
+
+// Set the default value of the showUtilityBar prop to true
+PostFrame.defaultProps = {
+  showUtilityBar: true,
 };
 
 export default PostFrame;

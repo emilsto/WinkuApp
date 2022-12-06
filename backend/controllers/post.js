@@ -330,11 +330,10 @@ export const getEpicPosts = async (req, res) => {
 };
 
 //get post by username and post id
-
 export const getPostByUserNameAndId = async (req, res) => {
+  try {
   const username = req.params.username;
   const id = req.params.id;
-  try {
     const usr = await User.findOne({
       where: {
         username: username,
@@ -358,10 +357,22 @@ export const getPostByUserNameAndId = async (req, res) => {
             model: User,
             attributes: ["username", "bio", "image", "isAdmin"],
           },
+          {
+            model: Comment,
+            attributes: ["id", "content", "createdAt"],
+            as: "comments",
+            include: [
+              {
+                model: User,
+                attributes: ["username", "bio", "image", "isAdmin"],
+              },
+            ],
+          },
+
         ],
         order: ["createdAt"],
       });
-      res.send({ post: post, user: usr });
+      res.send(post);
     }
   } catch (error) {
     res.status(error.status || 500).send({

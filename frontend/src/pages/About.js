@@ -37,41 +37,50 @@ const About = () => {
   return (
     <div className="flex flex-col py-8">
       <p className="py-2">
-        Winku (Whine) is a social media app that allows users to post messages
-        and see other users messages. Just pick the users YOU want to follow and
-        we display content from them! Yay!
+        Introducing Winku (pronounced "whine"), the hottest new social media app
+        that lets you share your thoughts with the world (or just a select few).
+        With Winku, you can post your musings and see what others are saying,
+        all in one convenient location. And don't worry, we haven't implemented
+        the "following" feature yet, so you can't follow anyone - sorry! But
+        don't worry, we're working on it, and soon you'll be able to customize
+        your feed by following your favorite users. So why not give Winku a try
+        and start sharing your innermost thoughts with the world today! Just
+        remember to keep it PG, folks.
       </p>
       <Team />
       <div className="flex flex-col">
         <h3 className="text-2xl font-bold">About the CEO</h3>
         <p className="py-2">
-          Emil Kantaneva, Creator, Founder, Chief Executive Officer of
-          Winku.net, doesen't live, he <i>lives</i>. A fearless risk taker, this
-          pioneer of Internet communications technology always strives to
-          innovate the world around him, as well as innovate himself.
+          Meet Emil Kantaneva, the mad scientist of the internet world. Hailing
+          from the land of saunas and reindeer, Emil has been tinkering with the
+          web since he was old enough to type. With a passion for innovation and
+          a willingness to take risks, Emil has built Winku.net from the ground
+          up, and now he's ready to unleash his latest creation: Winku.net 2.0.
         </p>
         <p className="py-2">
-          Born into a typical middle class family in the humble town of Lahti,
-          Finland, Emil Kantaneva has struggled to overcome adversity. Despicte
-          challges such as being born in Finland, Emil has managed to overcome
-          these challenges and become the CEO of Winku.net.
+          This new and improved version of Winku.net will be a one-stop shop for
+          all your online communication needs. Say goodbye to switching between
+          different apps and platforms - Winku.net 2.0 will bring Facebook,
+          Instagram, Twitter, and more together in one convenient location. It's
+          a bold move, but Emil is up for the challenge.
         </p>
         <p className="py-2">
-          Emil Kantaneva has moved back to Finland after living in the United
-          States for 5 years. He has been working on Winku.net for the past 2
-          years and is now ready to launch it to the world. He is currently
-          working on a new project called Winku.net 2.0, which will be a
-          complete overhaul of the current Winku.net. It will be a crazy program
-          that ties all your communication portals together, such as Facebook,
-          Instagram, Twitter, and more. It will be a game changer. Where Ryan
-          Howard failed, Emil Kantaneva will succeed.
+          So if you want to stay connected with the people and things that
+          matter most, keep your eye on Winku.net 2.0 - it's going to be a game
+          changer. And who knows, maybe Emil will even manage to outdo Ryan
+          Howard and become the internet's newest superhero.
         </p>
       </div>
       <div className="flex flex-col">
         <h3 className="text-2xl font-bold">About Winku</h3>
         <p className="py-2">
-          Winku is a revolutionary social media app that allows users to post
-          and see other users posts. It is a game changer.
+          Say hello to Winku, the revolutionary new social media app that's
+          going to change the game. With Winku, you can share your thoughts,
+          feelings, and insights with the world (or just a select few). And the
+          best part? You can see what others are posting, too! It's like having
+          a personal newsfeed, tailored just for you. So why not give Winku a
+          try and see what all the fuss is about? It's the app that's taking the
+          world by storm, and we think you're going to love it.
         </p>
       </div>
     </div>

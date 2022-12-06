@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Settings = ({ user, handleSubmit }) => {
   const [name, setName] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
   const [profilePic, setProfilePic] = useState(user.image);
-
+  console.log(profilePic);
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-      Username:
+        Username:
         <input
           type="text"
           name="name"
@@ -33,13 +33,17 @@ const Settings = ({ user, handleSubmit }) => {
         <input
           type="text"
           name={profilePic}
+          value={profilePic}
           onChange={(e) => setProfilePic(e.target.value)}
           className="form-input w-full p-2"
         />
       </label>
-      <button type="submit" className="my-2 bg-purple-500 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-purple-800 px-4">
-  Save
-</button>
+      <button
+        type="submit"
+        className="my-2 bg-purple-500 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-purple-800 px-4"
+      >
+        Save
+      </button>
     </form>
   );
 };

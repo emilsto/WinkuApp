@@ -12,8 +12,6 @@ const LOGIN_URL = "/api/login";
 const Login = () => {
   //dont let the user see this page if they are already logged in
   const { auth } = useContext(AuthContext);
-  
-
 
   //set up state for the login form
   const [login, setLogin] = useState({

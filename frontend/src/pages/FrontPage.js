@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Posts from "../components/Posts/Posts";
 import PostBox from "../components/Posts/PostBox";
@@ -6,12 +6,13 @@ import Spinner from "../components/Common/Spinner";
 import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 
+const POST_URL = "/api/posts";
+
 const FrontPage = () => {
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(1);
   const { auth } = useAuth();
-  const [isLogged, setIsLogged] = useState(false);
 
   //fetch fresh data from the API
   const fetchData = async (offset) => {
@@ -39,21 +40,24 @@ const FrontPage = () => {
     fetchData(offset);
   };
 
-  //check if user is logged in via local storage
-  useEffect(() => {
-    if (auth.token) {
-      setIsLogged(true);
+  const addData = async (addData) => {
+    try {
+      console.log("addData: ", addData);
+      const token = localStorage.getItem("token");
+      const response = await axios.post(POST_URL, JSON.stringify(addData), {
+        headers: { "Content-Type": "application/json", Authorization: token },
+      });
+      const resdata = response.data;
+      setData((prevData) => [resdata, ...prevData]);
+    } catch (error) {
+      
+      console.log(error);
     }
-
-  }, [auth.token]);
-
-  const addData = (addData) => {
-    setData((prevData) => [addData, ...prevData]);
   };
 
   return (
     <div className="flex flex-col">
-      {isLogged ? <PostBox user={auth.user} addData={addData} /> : null}
+      {auth.isLogged ? <PostBox user={auth.user} addData={addData} /> : null}
       <InfiniteScroll
         dataLength={data.length}
         next={handleLoadMore}
