@@ -27,7 +27,7 @@ export const createUser = async (req, res) => {
   }
 
   //set default image
-  const defaultImage = "https://i.pravatar.cc/300";
+  const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/d/de/Nokota_Horses_cropped.jpg";
 
   // Create a User
   const user = {
@@ -79,16 +79,25 @@ export const deleteUser = async (req, res) => {
 // Update user in the database
 
 export const updateUser = async (req, res) => {
-  const id = req.params.id;
+
+  console.log("req.body");
   try {
-    const user = await User.findByPk(id);
+        //get user from jwt
+        const token = req.body.token;
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findByPk(decoded.user.id);
     if (!user) {
       res.status(404).send({
         message: "User not found",
       });
       return;
     }
-    await user.update(req.body);
+    //update user
+    user.username = req.body.username;
+    user.bio = req.body.bio;
+    user.image = req.body.image;
+    await user.save();
     res.send(user);
   } catch (error) {
     res.status(500).send({
@@ -203,8 +212,13 @@ export const isLoggedIn = async (req, res) => {
     try {
       const verified = jwt.verify(token, process.env.TOKEN_SECRET);
       const user = verified.user;
-      console.log(user);
+      console.log(user);  
 
+      //search for user in db
+      const dbUser = await User.findByPk(user.id);
+      if (!dbUser) {
+        return res.status(401).send("Access Denied");
+      }
       res.send({ token: token, user: user });
     } catch (error) {
       res.status(400).send(false);

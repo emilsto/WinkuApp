@@ -4,9 +4,8 @@ const Settings = ({ user, handleSubmit }) => {
   const [name, setName] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
   const [profilePic, setProfilePic] = useState(user.image);
-  console.log(profilePic);
-
   return (
+    <div className="flex flex-col max-w-xl justify-center">
     <form onSubmit={handleSubmit}>
       <label>
         Username:
@@ -45,6 +44,7 @@ const Settings = ({ user, handleSubmit }) => {
         Save
       </button>
     </form>
+    </div>
   );
 };
 

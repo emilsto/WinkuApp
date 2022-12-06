@@ -1,14 +1,19 @@
 //component to handle posting to the database
 import React, { useState } from "react";
 
-
 const PostBox = ({ user, addData, from }) => {
   //set up state for the post
   const [post, setPost] = useState({
     content: "",
   });
 
-  const postToDatabase = async (e) => {
+    //text counter for the post
+    const [count, setCount] = useState(140);
+    const handleCount = (e) => {
+      setCount(140 - e.target.value.length);
+    };
+
+  const postToDatabase = async () => {
     //grab the token from local storage
     console.log(post)
       //add the post to the database
@@ -17,13 +22,9 @@ const PostBox = ({ user, addData, from }) => {
       setPost({
         content: "",
       });
+      setCount(140);
   };
 
-  //text counter for the post
-  const [count, setCount] = useState(140);
-  const handleCount = (e) => {
-    setCount(140 - e.target.value.length);
-  };
 
   //handle change for the post
   const handleChange = (e) => {

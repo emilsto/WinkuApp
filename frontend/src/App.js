@@ -29,9 +29,9 @@ const App = () => {
 
   return (
     <div>
-      <div className="flex j">
+      <div className="flex">
         <LeftNav />
-        <div className="w-3/6 max-w-xl">
+        <div className="w-1/2 max-w-xl min-w-">
           <ScrollToTop>
             {/* Pass the current page URL to the NavBar component as a prop */}
             <NavBar currentUrl={location.pathname} />

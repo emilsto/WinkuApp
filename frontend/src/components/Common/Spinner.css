@@ -21,3 +21,10 @@
     transform: rotate(360deg);
   }
 }
+
+.hover-settings {
+    width: 42px;
+    height: 42px;
+    animation: spin 3s linear infinite;
+    display: block;
+}
