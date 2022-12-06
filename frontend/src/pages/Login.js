@@ -58,7 +58,7 @@ const Login = () => {
       const user = response.data.user;
       localStorage.setItem("token", token);
       console.log(user);
-      setAuth({ token, user });
+      setAuth({ token, user, isLogged: true });
       //clear the login form
       setLogin({
         username: "",

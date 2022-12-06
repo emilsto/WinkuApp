@@ -25,7 +25,7 @@ const Profile = () => {
     } catch (error) {
       console.error(error);
     }
-    
+    console.log("Settings updated");
   };
   console.log("sent data: ", data);
 

@@ -3,7 +3,6 @@ import {
   getPosts,
   getPostById,
   createPost,
-  getTopPostsComments,
   getPostsByUserId,
   getPostsByUserName,
   getPostsByPage,
@@ -15,7 +14,6 @@ const router = express.Router();
 
 router.get("/posts", getPosts);
 router.post("/posts", createPost);
-router.get("/posts/top", getTopPostsComments);
 router.get("/posts/epic", getEpicPosts);
 router.put("/posts/like/:id", likePost);
 router.get("/posts/:id", getPostById);

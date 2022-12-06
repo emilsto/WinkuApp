@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 
 const Settings = ({ user, handleSubmit }) => {
-  const [name, setName] = useState(user.name);
+  const [name, setName] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
   const [profilePic, setProfilePic] = useState(user.image);
 
-  const handleChange = (event) => {
-    if (event.target.name === 'name') setName(event.target.value);
-    else if (event.target.name === 'bio') setBio(event.target.value);
-    else if (event.target.name === 'profilePic') setProfilePic(event.target.value);
-    console.log(event.target.name);
-  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -20,7 +14,8 @@ const Settings = ({ user, handleSubmit }) => {
           type="text"
           name="name"
           value={name}
-          onChange={handleChange}
+          onChange={(e) => setName(e.target.value)}
+          className="form-input w-full p-2"
         />
       </label>
       <label>
@@ -29,19 +24,22 @@ const Settings = ({ user, handleSubmit }) => {
           type="text"
           name="bio"
           value={bio}
-          onChange={handleChange}
+          onChange={(e) => setBio(e.target.value)}
+          className="form-input w-full p-2"
         />
       </label>
       <label>
-        Profile Picture:
+        Profile picture URL:
         <input
-          type="file"
-          name="profilePic"
-          onChange={handleChange}
+          type="text"
+          name={profilePic}
+          onChange={(e) => setProfilePic(e.target.value)}
+          className="form-input w-full p-2"
         />
       </label>
-      <button type="submit">Save</button>
-
+      <button type="submit" className="my-2 bg-purple-500 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-purple-800 px-4">
+  Save
+</button>
     </form>
   );
 };

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Posts from "../components/Posts/Posts";
 import PostBox from "../components/Posts/PostBox";
@@ -7,17 +7,14 @@ import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 
 const FrontPage = () => {
-  //states
   const [data, setData] = useState([]);
-  const [isLogged, setIsLogged] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(1);
-
-  //auth custom hook
   const { auth } = useAuth();
+  const [isLogged, setIsLogged] = useState(false);
 
   //fetch fresh data from the API
-  const apiCall = async () => {
+  const fetchData = async (offset) => {
     try {
       const res = await axios.get(
         `http://localhost:4000/api/posts/pages/${offset}`
@@ -29,32 +26,26 @@ const FrontPage = () => {
         setHasMore(false);
       }
       //add new data to the site and render it
-      //if there is a duplicate, it will be ignored
       setData((prevData) => [...prevData, ...data]);
     } catch (error) {}
   };
 
-  const inititialFetch = useCallback(async () => {
-    try {
-      const res = await axios.get("http://localhost:4000/api/posts/pages/1");
-      const data = res.data;
-      setOffset((prevOffset) => prevOffset + 1);
-      setData(data);
-    } catch (error) {}
-  }, []);
+  if (offset === 1) {
+    fetchData(offset);
+  }
+
+  //function to be called when the user scrolls to the bottom of the page
+  const handleLoadMore = () => {
+    fetchData(offset);
+  };
 
   //check if user is logged in via local storage
-  //calling a function inside useEffect, useCallBack
   useEffect(() => {
     if (auth.token) {
       setIsLogged(true);
     }
-    inititialFetch();
-  }, [auth.token, inititialFetch]);
 
-  const handleLoadMore = () => {
-    apiCall();
-  };
+  }, [auth.token]);
 
   const addData = (addData) => {
     setData((prevData) => [addData, ...prevData]);

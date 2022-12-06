@@ -7,26 +7,19 @@ import Modal from "./Modal";
 
 const LeftNav = () => {
   //get useAuth hook
+  const [showModal, setShowModal] = useState(false);
+  const [state, setState] = useState({});
+
   const { auth } = useAuth();
 
-  //set up state for the login
-  const [isLogged, setIsLogged] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [user, setUser] = useState({});
-
-
-  const loggedInCheck = () => {
-    if (auth.token) {
-      setIsLogged(true);
-      setUser(auth.user);
-    } else {
-      setIsLogged(false);
-    }
-  };
-
+  // Refresh the component whenever the auth state variable changes
   useEffect(() => {
-    loggedInCheck();
-  });
+    setState({
+      // Update the component state here
+    });
+  }, [auth]);
+
+  console.log(auth);
 
   const showModalHandler = () => {
     setShowModal(true);
@@ -45,15 +38,15 @@ const LeftNav = () => {
           </Link>
           <Link to="/about"># about</Link>
           <Link to="/archive"># archive</Link>
-          {isLogged ? (
+          {auth.isLogged ? (
             <Link to={`/${auth.user.username}`}># {auth.user.username}</Link>
           ) : null}
-          {isLogged ? (
+          {auth.isLogged ? (
             <Link to="/logout"># logout</Link>
           ) : (
             <Link to="/login"># login</Link>
           )}
-          {isLogged ? null : <Link to="/signup"># signup</Link>}
+          {auth.isLogged ? null : <Link to="/signup"># signup</Link>}
           <div className="hover:text-purple-600">
             <button
               className="bg-purple-500 hover:text-slate-500 text-white font-bold px-8 py-2 rounded-full"
@@ -63,7 +56,7 @@ const LeftNav = () => {
             </button>
             {showModal ? <Backdrop onClick={hideModalHandler} /> : null}
             {showModal ? (
-              <Modal onClick={hideModalHandler} user={user} />
+              <Modal onClick={hideModalHandler} user={auth.user} />
             ) : null}
           </div>
         </div>

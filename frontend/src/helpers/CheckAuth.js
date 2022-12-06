@@ -3,8 +3,9 @@ import { useContext, useEffect } from "react";
 import AuthContext from "../context/AuthProvider";
 import axios from "../api/axios";
 
-const CheckAuth = (props) => {
+const CheckAuth = () => {
   const { setAuth } = useContext(AuthContext);
+
   //check if user is logged in via local storage and
   useEffect(() => {
     const saved_token = { token: localStorage.getItem("token") };
@@ -22,7 +23,7 @@ const CheckAuth = (props) => {
           const token = response.data.token;
           const user = response.data.user;
           localStorage.setItem("token", token);
-          setAuth({ token, user });
+          setAuth({ token, user, isLogged: true });
         } catch (error) {
           console.log(error);
         }
@@ -31,6 +32,7 @@ const CheckAuth = (props) => {
     } else {
       setAuth(null);
     }
+    console.log("CheckAuth ran");
   }, [setAuth]);
 };
 

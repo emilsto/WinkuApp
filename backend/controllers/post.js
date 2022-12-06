@@ -182,29 +182,6 @@ export const likePost = async (req, res) => {
   }
 };
 
-// Unlike a Post with the specified id in the request
-
-export const unlikePost = async (req, res) => {
-  const id = req.params.id;
-
-  try {
-    const post = await Post.findByPk(id);
-    if (!post) {
-      res.status(404).send({
-        message: "Post not found",
-      });
-      return;
-    }
-    const updatedPost = await post.update({
-      likes: post.likes - 1,
-    });
-    res.send(updatedPost);
-  } catch (error) {
-    res.status(500).send({
-      message: error.message || "Some error occurred while unliking post.",
-    });
-  }
-};
 
 // Special method to create a post with a user id
 
@@ -231,83 +208,6 @@ export const createPostWithUserId = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message: error.message || "Some error occurred while creating the Post.",
-    });
-  }
-};
-
-//fetch x amount of posts , use a offset to get the next x amount of posts
-export const getPostsByAmount = async (req, res) => {
-  //custom query to get x amount of posts
-  try {
-    // this a workarround for sequelize not supporting limit in mysql 8.0
-    let query =
-      "SELECT `post`.`id`, `post`.`content`, `post`.`likes`, `post`.`dislikes`, `post`.`createdAt`, `user`.`id` AS `user_id`, `user`.`username` AS `username`, `user`.`bio` AS `bio`, `user`.`image` AS `image`, `user`.`isAdmin` AS `isAdmin` FROM `posts` AS `post` LEFT OUTER JOIN `users` AS `user` ON `post`.`userId` = `user`.`id` ORDER BY `post`.`createdAt` DESC LIMIT AMOUNT OFFSET OFF_SET";
-    const amount = req.params.amount;
-    const offset = req.params.offset;
-    //replace the 5 with the amount and the 2 with the offset
-    query = query.replace("AMOUNT", amount);
-    query = query.replace("OFF_SET", offset);
-
-    console.log(amount, offset);
-    const posts = await sequelize.query(query, {
-      type: QueryTypes.SELECT,
-    });
-
-    res.send(posts);
-    console.log("Posts fetched successfully!");
-  } catch (error) {
-    res.status(500).send({
-      message: error.message || "Some error occurred while retrieving posts.",
-    });
-  }
-};
-
-// get comments for a post
-
-export const getCommentsForPost = async (req, res) => {
-  const id = req.params.id;
-
-  try {
-    const comments = await Comment.findAll({
-      where: {
-        postId: id,
-      },
-      attributes: ["content", "createdAt"],
-      include: [
-        {
-          User,
-          attributes: ["username", "bio", "image"],
-        },
-      ],
-      order: [["createdAt"]],
-    });
-    res.send(comments);
-  } catch (error) {
-    res.status(500).send({
-      message:
-        error.message || "Some error occurred while retrieving comments.",
-    });
-  }
-};
-
-//send top 10 most recent posts with comments
-export const getTopPostsComments = async (req, res) => {
-  try {
-    const posts = await Post.findAll({
-      attributes: ["id", "content", "likes", "dislikes", "createdAt"],
-      include: [
-        {
-          model: User,
-          attributes: ["username", "bio", "image", "isAdmin"],
-        },
-      ],
-      order: [["createdAt", "DESC"]],
-      limit: 10,
-    });
-    res.send(posts);
-  } catch (error) {
-    res.status(500).send({
-      message: error.message || "Some error occurred while retrieving posts.",
     });
   }
 };
