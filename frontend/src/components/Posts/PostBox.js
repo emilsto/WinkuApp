@@ -41,7 +41,7 @@ const PostBox = ({ user, addData, from }) => {
   };
 
   return (
-    <div className="border-x border-y border-slate-300 p-4 w-full bg-white">
+    <div className="border-x border-y border-slate-300 p-4 bg-white">
       <div className="flex flex-row py-2">
         <img className="rounded-full w-16 h-16" src={user.image} alt=""></img>
         <textarea

@@ -198,7 +198,6 @@ export const createPostWithUserId = async (req, res) => {
   const post = {
     content: req.body.content,
     userId: req.body.userId,
-    comments: req.body.comments,
   };
   
 

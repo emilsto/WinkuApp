@@ -24,14 +24,13 @@ import CheckAuth from "./helpers/CheckAuth";
 
 const App = () => {
   CheckAuth();
-
   const location = useLocation();
 
   return (
     <div>
       <div className="flex">
         <LeftNav />
-        <div className="w-1/2 max-w-xl min-w-">
+        <div className="w-1/2 max-w-xl">
           <ScrollToTop>
             {/* Pass the current page URL to the NavBar component as a prop */}
             <NavBar currentUrl={location.pathname} />

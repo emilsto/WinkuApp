@@ -78,7 +78,7 @@ export const getComment = async (req, res) => {
   const id = req.params.id;
   try {
     const comment = await Comment.findByPk(id, {
-      attributes: ["id", "content", "createdAt"],
+      attributes: ["id", "content", "createdAt",],
       include: [
         {
           // include the User model here:
