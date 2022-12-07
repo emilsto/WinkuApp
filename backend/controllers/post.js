@@ -65,7 +65,7 @@ export const createPost = async (req, res) => {
 export const getPosts = async (req, res) => {
   try {
     const posts = await Post.findAll({
-      attributes: ["idThis is not a good thing.", "content", "likes", "dislikes", "createdAt"],
+      attributes: ["id", "content", "likes", "dislikes", "createdAt"],
       include: [
         {
           // include the User model here:
