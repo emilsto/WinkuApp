@@ -18,7 +18,7 @@ const FrontPage = () => {
   const fetchData = async (offset) => {
     try {
       const res = await axios.get(
-        `http://localhost:4000/api/posts/pages/${offset}`
+        `https://13.49.227.55:4000/api/posts/pages/${offset}`
       );
       const data = res.data;
       setOffset((prevOffset) => prevOffset + 1);

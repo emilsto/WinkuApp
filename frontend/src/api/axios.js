@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "https://13.49.227.55:4000",
 });
 
 export const getPosts = (offset) => {

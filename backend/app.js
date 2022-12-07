@@ -1,4 +1,7 @@
 import express from "express";
+import https from "https";
+import fs from "fs";
+
 import userRouter from "./routes/user_route.js";
 import postRouter from "./routes/post_route.js";
 import commentRouter from "./routes/comment_route.js";
@@ -15,7 +18,6 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 //sequelize connection
 try {
   await db.authenticate();
@@ -34,6 +36,20 @@ try {
   console.error("Unable to connect to the database:", error);
 }
 
+
+//https server
+https.createServer(
+  {
+    key: fs.readFileSync("./certs/key.pem"),
+    cert: fs.readFileSync("./certs/cert.pem"),
+  },
+  app
+)
+  .listen(4000, () => {
+  console.log("App listening on port 3000!");
+});
+
+
 //routes
 app.use("/api/", userRouter);
 app.use("/api/", postRouter);
@@ -41,14 +57,4 @@ app.use("/api/", commentRouter);
 //simple route
 app.get("/", (req, res) => {
   res.send("Hello World!");
-});
-
-//cors test
-app.get("/cors", (req, res) => {
-  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.send({ msg: "This has CORS enabled 🎈" });
-});
-
-app.listen(4000, () => {
-  console.log("App listening on port 3000!");
 });
