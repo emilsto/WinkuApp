@@ -7,49 +7,48 @@ dotenv.config();
 
 // Create and Save a new User
 export const createUser = async (req, res) => {
-  // Validate request
-  if (!req.body.username || !req.body.password) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-    return;
-  }
-
-  //check if username already exists
-  const existingUser = await User.findOne({
-    where: { username: req.body.username },
-  });
-  if (existingUser) {
-    res.status(400).send({
-      message: "Username already exists!",
-    });
-    return;
-  }
-
-  //set default image
-  const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/d/de/Nokota_Horses_cropped.jpg";
-
-  // Create a User
-  const user = {
-    username: req.body.username,
-    password: req.body.password,
-    bio: "update your bio",
-    image: defaultImage,
-  };
-
-  // hash password
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.password, salt);
-
-  // Save User in the database
   try {
+    const { username, password } = req.body;
+
+    // Check if username and password are provided
+    if (!username || !password) {
+      const error = new Error("Username and password are required!");
+      error.status = 400;
+      throw error;
+    }
+  
+    // Check if username already exists
+    const existingUser = await User.findOne({
+      where: { username: username},
+    });
+    if (existingUser) {
+      console.log("Username already exists!");
+
+      const error = new Error("Username already exists!");
+      error.status = 401;
+      throw error;
+    }
+  
+    // Set default image
+    const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/d/de/Nokota_Horses_cropped.jpg";
+  
+    // Create a User
+    let user = {
+      username: req.body.username,
+      password: req.body.password,
+      bio: "update your bio",
+      image: defaultImage,
+    };
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
     const newUser = await User.create(user);
     res.send(newUser);
-    console.log("User created successfully!");
-  } catch (error) {
-    res.status(500).send({
-      message: error.message || "Some error occurred while creating the User.",
-    });
+  }
+  catch (error) {
+    res.status(error.status || 500).
+    send(error.message || "Some error occurred while creating the User.");
   }
 };
 

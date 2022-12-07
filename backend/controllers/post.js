@@ -198,13 +198,16 @@ export const createPostWithUserId = async (req, res) => {
   const post = {
     content: req.body.content,
     userId: req.body.userId,
+    comments: req.body.comments,
   };
+  
 
   // Save Post in the database
   try {
     const newPost = await Post.create(post);
     res.send(newPost);
     console.log("Post created successfully!");
+    console.log(newPost);
   } catch (error) {
     res.status(500).send({
       message: error.message || "Some error occurred while creating the Post.",
@@ -266,9 +269,14 @@ export const getPostsByUserName = async (req, res) => {
             model: User,
             attributes: ["username", "bio", "image", "isAdmin"],
           },
+          {
+            model: Comment,
+            as : "comments",
+          }
         ],
         order: ["createdAt"],
       });
+      
       res.send({ posts: posts, user: usr });
     }
   } catch (error) {
@@ -290,7 +298,10 @@ export const getPostsByPage = async (req, res) => {
           model: User,
           attributes: ["username", "bio", "image", "isAdmin"],
         },
-        
+        {
+          model: Comment,
+          as : "comments",
+        }
       ],
       order: [["createdAt", "DESC"]],
       limit: 10,
@@ -318,6 +329,10 @@ export const getEpicPosts = async (req, res) => {
           model: User,
           attributes: ["username", "bio", "image", "isAdmin"],
         },
+        {
+          model: Comment,
+          as : "comments",
+        }
       ],
       order: [["createdAt", "DESC"]],
       limit: 10,

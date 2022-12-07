@@ -32,7 +32,7 @@ const CommentFrame = ({ comment }) => {
         <div className=" mx-1">
           <div className="flex flex-row">
             <Link to={`/${comment.user.username}`}>
-              <p className="hover:underline">@{comment.user.username} replies:</p>
+              <p className="hover:text-slate-700">@{comment.user.username} replies:</p>
             </Link>
           </div>
         </div>

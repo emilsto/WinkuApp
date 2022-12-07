@@ -68,7 +68,7 @@ const PostBox = ({ user, addData, from }) => {
 <button
          type="submit"
          onClick={handleSubmit}
-         className="bg-purple-500 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-purple-800"
+         className="bg-purple-500 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-purple-800 active:animate-wiggle"
        >
 Wingu!
 </button>
@@ -76,7 +76,7 @@ Wingu!
 <button
          type="submit"
          onClick={handleSubmit}
-         className="bg-blue-500 opacity-75 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-blue-800"
+         className="bg-blue-500 opacity-75 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-blue-800 active:animate-wiggle"
        >
 Comment
 </button>

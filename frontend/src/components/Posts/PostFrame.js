@@ -46,7 +46,7 @@ const PostFrame = ({ post, showUtilityBar }) => {
         <div className=" mx-1">
           <div className="flex flex-row">
             <Link to={`/${post.user.username}`}>
-              <p className="hover:underline">@{post.user.username}</p>
+              <p className="hover:text-slate-700">@{post.user.username}</p>
             </Link>
             {isAdmin ? (
               <img

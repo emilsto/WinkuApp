@@ -42,14 +42,14 @@ const LeftNav = () => {
           ) : (
             <Link to="/login"># login</Link>
           )}
-          {auth.isLogged ? null : <Link to="/signup"># signup</Link>}
-          <div className="hover:text-purple-600">
-            <button
+          {auth.isLogged ?             <button
               className="bg-purple-500 hover:text-slate-500 text-white font-bold px-8 py-2 rounded-full"
               onClick={showModalHandler}
             >
               Wingu
-            </button>
+            </button> : <Link to="/signup"># signup</Link>}
+          <div className="hover:text-purple-600">
+
             {showModal ? <Backdrop onClick={hideModalHandler} /> : null}
             {showModal ? (
               <Modal onClick={hideModalHandler} user={auth.user} origin={"home"}/>

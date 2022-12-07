@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+
+import {FaRegCommentAlt, FaRegHeart} from "react-icons/fa";
+
 import axios from "../../api/axios";
 
 const Utilitybar = ({ post }) => {
@@ -29,30 +32,24 @@ const Utilitybar = ({ post }) => {
   };
 
   return (
-    <div className="flex flex-col my-2 ">
-      <div className="flex flex-row">
+      <div className="flex flex-row my-2 w-4xl">
         <button
-          className="bg-purple-500 hover:bg-purple-700 opacity-75 text-white py-1 px-2 rounded-l-xl w-20"
+          className="bg-purple-500 w-20 hover:bg-purple-700 opacity-75 text-white py-1 px-2 rounded-l-xl active:animate-wiggle"
           onClick={handleLike}
         >
-          Cool {likes}
+          <FaRegHeart className="inline"/> {likes}
         </button>
-        <button className="bg-blue-500 hover:bg-blue-700 opacity-75 text-white py-1 px-2 rounded-r-xl w-20">
-        <Link
-            to={`/${post.user.username}/${post.id}`}
-        
-          >
-            Reply {post.dislikes}
-          </Link>
+        <Link             to={`/${post.user.username}/${post.id}`}
+        >
+        <button className="bg-blue-500 w-20 hover:bg-blue-700 opacity-75 text-white py-1 px-2 rounded-r-xl active:animate-wiggle">
+
+
+            <FaRegCommentAlt className="inline"/> {post.comments === undefined ? 0 : post.comments.length}
+
           
         </button>
+        </Link>
       </div>
-      <div className=""></div>
-      {/* display the error message if it is not null */}
-      {error ? (
-        <div className="text-red-600 font-bold text-sm">{error}</div>
-      ) : null}
-    </div>
   );
 };
 
