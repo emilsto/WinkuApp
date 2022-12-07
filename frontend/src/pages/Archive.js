@@ -10,7 +10,7 @@ const Archive = () => {
   useEffect(() => {
     const getEpicPosts = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/posts/epic`);
+        const res = await axios.get(`https://13.49.227.55:4000/api/posts/epic`);
         const data = res.data;
         setData(data);
       } catch (error) {
