@@ -38,18 +38,16 @@ const Utilitybar = ({ post }) => {
           Cool {likes}
         </button>
         <button className="bg-blue-500 hover:bg-blue-700 opacity-75 text-white py-1 px-2 rounded-r-xl w-20">
-          Reply {post.dislikes}
+        <Link
+            to={`/${post.user.username}/${post.id}`}
+        
+          >
+            Reply {post.dislikes}
+          </Link>
+          
         </button>
       </div>
-      <div className="py-2"></div>
-        <div className="flex flex-row">
-          <Link
-            to={`/${post.user.username}/${post.id}`}
-            className="text-blue-400 text-sm font-bold"
-          >
-            Show thread
-          </Link>
-        </div>
+      <div className=""></div>
       {/* display the error message if it is not null */}
       {error ? (
         <div className="text-red-600 font-bold text-sm">{error}</div>

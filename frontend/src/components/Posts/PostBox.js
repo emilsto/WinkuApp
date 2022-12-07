@@ -11,6 +11,7 @@ const PostBox = ({ user, addData, from }) => {
     const [count, setCount] = useState(140);
     const handleCount = (e) => {
       setCount(140 - e.target.value.length);
+      console.log(from);
     };
 
   const postToDatabase = async () => {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Posts from "../components/Posts/Posts";
 import PostBox from "../components/Posts/PostBox";
-import Spinner from "../components/Common/Spinner";
+import PostSkeleton from "../components/Posts/PostSkeleton";
 import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 
@@ -62,7 +62,7 @@ const FrontPage = () => {
         dataLength={data.length}
         next={handleLoadMore}
         hasMore={hasMore}
-        loader={<Spinner />}
+        loader={<PostSkeleton />}
         endMessage={
           <div className="flex flex-col justify-items-center text-center border-t border-slate-200">
             <p className="text-purple-500 text-3xl font-bold m-5">D:</p>

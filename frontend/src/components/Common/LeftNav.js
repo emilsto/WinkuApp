@@ -8,15 +8,13 @@ import Modal from "./Modal";
 const LeftNav = () => {
   //get useAuth hook
   const [showModal, setShowModal] = useState(false);
-  const [state, setState] = useState({});
+  const [state, setState] = useState("home");
 
   const { auth } = useAuth();
 
   // Refresh the component whenever the auth state variable changes
   useEffect(() => {
-    setState({
-      // Update the component state here
-    });
+    setState("home");
   }, [auth]);
 
   const showModalHandler = () => {
@@ -54,7 +52,7 @@ const LeftNav = () => {
             </button>
             {showModal ? <Backdrop onClick={hideModalHandler} /> : null}
             {showModal ? (
-              <Modal onClick={hideModalHandler} user={auth.user} />
+              <Modal onClick={hideModalHandler} user={auth.user} origin={"home"}/>
             ) : null}
           </div>
         </div>
