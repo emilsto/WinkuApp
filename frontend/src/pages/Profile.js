@@ -8,8 +8,6 @@ import PostSkeleton from "../components/Posts/PostSkeleton";
 import axios from "../api/axios";
 import Settings from "../components/Profile/Settings";
 import useAuth from "../hooks/useAuth";
-import Modal from "../components/Common/Modal";
-
 
 import { FcSettings } from "react-icons/fc";
 
@@ -19,16 +17,16 @@ const Profile = () => {
   const [error, setError] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [user, setUser] = useState({});
-  const [showModal, setShowModal] = useState(false);
   const { auth } = useAuth();
   const { username } = useParams();
 
-  const handleUserUpdate = async () => {
+
+
+  const handleUserUpdate = async (handleUserUpdate) => {
+    console.log("Updating settings");
+    console.log(handleUserUpdate);
     try {
-      const response = await axios.put(`/api/users/update/${auth.user.id}`, JSON.stringify(data), {
-        headers: { "Content-Type": "application/json", Authorization: auth.token },
-      });
-      console.log(response);
+      console.log()
     } catch (error) {
       console.error(error);
     }
@@ -50,27 +48,34 @@ const Profile = () => {
     fetchData();
   }, [username]);
 
+
+
   return (
-    <div>
+    <div className="flex flex-col">
       {loading ? (
         <>
-          <ProfileSkeleton /> <PostSkeleton />{" "}
+          <ProfileSkeleton /> <PostSkeleton />
         </>
       ) : (
         <div className="flex flex-col">
-        <div className="flex flex-row justify-center items-center py-2">
-        <ProfileCard user={user} />
-                {auth.token && auth.user.username === username ? (
-            <FcSettings size={42} className="cursor-pointer hover:animate-spin" onClick={()=> setShowSettings(!showSettings)}/>
-            )
-          : null}
-           {showSettings ?
-           <div className="absolute top-0 left-0 w-screen h-screen bg-gray-900 bg-opacity-50 z-50">
-            <Settings user={user} handleUserUpdate={handleUserUpdate} />   </div>: null}
-           
+          <div className="flex flex-row md:justify-center items-center md:py-2">
+            <ProfileCard user={user} />
+            {auth.token && auth.user.username === username ? (
+              <FcSettings
+                size={42}
+                className="cursor-pointer hover:animate-spin"
+                onClick={() => setShowSettings(!showSettings)}
+              />
+            ) : null}
+                      </div>
+
+            {showSettings ? (
+              <div className="flex flex-col">
+                <Settings user={user} handleUserUpdate={handleUserUpdate} />
+              </div>
+            ) : null}
+          <Posts data={data} className="" />
         </div>
-                  <Posts data={data} />
-      </div>
       )}
       {data.length < 1 && !error ? (
         <div className="py-5 text-center">

@@ -1,50 +1,62 @@
 import React, { useState } from "react";
 
-const Settings = ({ user, handleSubmit }) => {
-  const [name, setName] = useState(user.username);
-  const [bio, setBio] = useState(user.bio);
-  const [profilePic, setProfilePic] = useState(user.image);
+const Settings = ({ user, handleUserUpdate }) => {
+
+  const [newInfo, setNewInfo] = useState({
+    username: user.username,
+    bio: user.bio,
+    image: user.image
+  });
+
+  //handlechange for inputs
+  const handleChange = (e) => {
+    setNewInfo({
+      ...newInfo,
+      [e.target.name]: e.target.value
+    });
+  };
+
   return (
-    <div className="flex flex-col max-w-xl justify-center">
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="form-input w-full p-2"
-        />
-      </label>
-      <label>
-        Bio:
-        <input
-          type="text"
-          name="bio"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-          className="form-input w-full p-2"
-        />
-      </label>
-      <label>
-        Profile picture URL:
-        <input
-          type="text"
-          name={profilePic}
-          value={profilePic}
-          onChange={(e) => setProfilePic(e.target.value)}
-          className="form-input w-full p-2"
-        />
-      </label>
-      <button
-        type="submit"
-        className="my-2 bg-purple-500 text-neutral-50 font-bold rounded-3xl p-2 text-xl inline-flex items-center p-2 hover:bg-purple-800 px-4"
-      >
-        Save
-      </button>
-    </form>
-    </div>
+
+      <div className="flex flex-col m-5">
+        <label className="text-lg my-2">           Username:</label>
+
+          <input
+            type="text"
+            name="username"
+            value={newInfo.username}
+            onChange={handleChange}
+            className="border border-slate-400 p-2"
+          />
+        <label className="text-lg my-2">        Bio:     </label>
+          <input
+            type="text"
+            name="bio"
+            value={newInfo.bio}
+            onChange={handleChange}
+            className="border border-slate-400 p-2"
+          />
+        <label className="text-lg my-2">   Profile picture URL:       </label>
+
+        
+          <input
+            type="text"
+            name="image"
+            value={newInfo.image}
+            onChange={handleChange}
+            className="border border-slate-400 p-2"
+          />
+        <label className="text-xl my-2">     </label>
+
+
+        <button
+          onClick={handleUserUpdate}
+          className="bg-purple-500 text-white p-2 rounded-md hover:bg-purple-700 mt-4"
+        >
+          Save
+        </button>
+      </div>
+      
   );
 };
 

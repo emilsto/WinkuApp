@@ -4,8 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CommentFrame = ({ comment }) => {
-
-    console.log("comment frame", comment);
+  console.log("comment frame", comment);
   const date = new Date(comment.createdAt);
   const options = {
     weekday: "short",
@@ -32,7 +31,9 @@ const CommentFrame = ({ comment }) => {
         <div className=" mx-1">
           <div className="flex flex-row">
             <Link to={`/${comment.user.username}`}>
-              <p className="hover:text-slate-700">@{comment.user.username} replies:</p>
+              <p className="hover:text-slate-700">
+                @{comment.user.username} replies:
+              </p>
             </Link>
           </div>
         </div>

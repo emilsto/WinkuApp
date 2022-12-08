@@ -11,7 +11,7 @@ import useAuth from "../hooks/useAuth";
 const POST_URL = "api/comment/create";
 
 const PageThread = (props) => {
-    const { auth } = useAuth();
+  const { auth } = useAuth();
   // Get the username and post ID from the URL
   const { username, postId } = props.match.params;
 
@@ -42,27 +42,25 @@ const PageThread = (props) => {
     fetchPost();
   }, [username, postId]);
 
-
   const addData = async (addData) => {
     try {
-        //add postId to the data
-        addData.postId = postId;
-        console.log("addData: ", addData);
+      //add postId to the data
+      addData.postId = postId;
+      console.log("addData: ", addData);
 
-        const token = localStorage.getItem("token");
-        const response = await axios.post(POST_URL, JSON.stringify(addData), {
-            headers: { "Content-Type": "application/json", Authorization: token },
-        });
-        const newComment = response.data;
-        handleCommentAdded(newComment);
-        console.log(response.data);
-        //add the data to the bottom of the page
-        //Send signal to the Comment component to update the state
+      const token = localStorage.getItem("token");
+      const response = await axios.post(POST_URL, JSON.stringify(addData), {
+        headers: { "Content-Type": "application/json", Authorization: token },
+      });
+      const newComment = response.data;
+      handleCommentAdded(newComment);
+      console.log(response.data);
+      //add the data to the bottom of the page
+      //Send signal to the Comment component to update the state
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-
-};
+  };
 
   // Render the post content if it has been fetched, or a loading message otherwise
   return (
@@ -70,12 +68,21 @@ const PageThread = (props) => {
       {post ? (
         <>
           <PostFrame post={post} showUtilityBar={false} />
-          <Comment comments={post.comments} handleNewComment={handleCommentAdded}  />
+          <Comment
+            comments={post.comments}
+            handleNewComment={handleCommentAdded}
+          />
         </>
       ) : (
         "Loading post..."
       )}
-        {auth.isLogged ? <PostBox user={auth.user} addData={addData} onCommentAdded={handleCommentAdded}/> : null}
+      {auth.isLogged ? (
+        <PostBox
+          user={auth.user}
+          addData={addData}
+          onCommentAdded={handleCommentAdded}
+        />
+      ) : null}
     </div>
   );
 };

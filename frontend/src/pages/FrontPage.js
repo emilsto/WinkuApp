@@ -7,6 +7,7 @@ import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 
 const POST_URL = "/api/posts";
+const GET_URL = "/api/posts/pages";
 
 const FrontPage = () => {
   const [data, setData] = useState([]);
@@ -17,9 +18,7 @@ const FrontPage = () => {
   //fetch fresh data from the API
   const fetchData = async (offset) => {
     try {
-      const res = await axios.get(
-        `https://13.49.227.55:4000/api/posts/pages/${offset}`
-      );
+      const res = await axios.get(GET_URL + `/${offset}`);
       const data = res.data;
       setOffset((prevOffset) => prevOffset + 1);
       //if retrieved data is empty, set hasMore to false
@@ -31,6 +30,7 @@ const FrontPage = () => {
     } catch (error) {}
   };
 
+  //this is a hack to fetch the first page of data
   if (offset === 1) {
     fetchData(offset);
   }
@@ -50,15 +50,17 @@ const FrontPage = () => {
       const resdata = response.data;
       setData((prevData) => [resdata, ...prevData]);
     } catch (error) {
-      
       console.log(error);
     }
   };
 
   return (
-    <div className="flex flex-col">
-      {auth.isLogged ? <PostBox user={auth.user} addData={addData} from={"home"} /> : null}
+    <div className="">
+      {auth.isLogged ? (
+        <PostBox user={auth.user} addData={addData} from={"home"} />
+      ) : null}
       <InfiniteScroll
+        className=""
         dataLength={data.length}
         next={handleLoadMore}
         hasMore={hasMore}

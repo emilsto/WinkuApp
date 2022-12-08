@@ -1,7 +1,11 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://13.49.227.55:4000",
+  baseURL: "https://ec2-13-49-227-55.eu-north-1.compute.amazonaws.com:4000",
+  // baseURL: "http://localhost:4000", //development
+  // baseURL: "https://13.49.227.55:4000" //production
+  // baseURL: "https://ec2-13-49-227-55.eu-north-1.compute.amazonaws.com:4000" //production2
+
 });
 
 export const getPosts = (offset) => {

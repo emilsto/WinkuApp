@@ -14,7 +14,7 @@ const team = [
 
 const Team = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col ">
       <h1 className="text-2xl font-bold">Meet the team</h1>
       <div className="flex flex-wrap justify-center">
         {team.map((member) => (
@@ -35,7 +35,7 @@ const Team = () => {
 
 const About = () => {
   return (
-    <div className="flex flex-col py-8">
+    <div className="flex flex-col md:py-8 py-0 md:m-0 m-5">
       <p className="py-2">
         Introducing Winku (pronounced "whine"), the hottest new social media app
         that lets you share your thoughts with the world (or just a select few).

@@ -78,12 +78,13 @@ export const deleteUser = async (req, res) => {
 // Update user in the database
 
 export const updateUser = async (req, res) => {
-
   console.log("req.body");
+  console.log("+++++++++++++++++++++++++++++++");
+  console.log(req.body);
+  console.log("+++++++++++++++++++++++++++++++");
   try {
         //get user from jwt
-        const token = req.body.token;
-
+    const token = req.body.token;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findByPk(decoded.user.id);
     if (!user) {
@@ -93,14 +94,14 @@ export const updateUser = async (req, res) => {
       return;
     }
     //update user
-    user.username = req.body.username;
-    user.bio = req.body.bio;
-    user.image = req.body.image;
+    User.update(req.body, {
+      where: { id: decoded.user.id },
+    });
     await user.save();
     res.send(user);
   } catch (error) {
     res.status(500).send({
-      message: "Could not update User with id=" + id,
+      message: "Could not update User with id=" + decoded.user.id,
     });
   }
 };

@@ -15,6 +15,7 @@ import FourOhFour from "./pages/FourOhFour";
 import NavBar from "./components/Common/NavBar";
 import LeftNav from "./components/Common/LeftNav";
 import Footer from "./components/Common/Footer";
+import BottomNav from "./components/Common/BottomNav";
 
 //helper function to scroll to top of page on route change
 import ScrollToTop from "./helpers/ScrollToTop";
@@ -28,9 +29,9 @@ const App = () => {
 
   return (
     <div>
-      <div className="flex">
+      <div className="md:flex inline">
         <LeftNav />
-        <div className="w-1/2 max-w-xl">
+        <div className="md:w-1/2 md:max-w-xl w-fit">
           <ScrollToTop>
             {/* Pass the current page URL to the NavBar component as a prop */}
             <NavBar currentUrl={location.pathname} />
@@ -47,6 +48,7 @@ const App = () => {
             </Switch>
           </ScrollToTop>
           <Footer></Footer>
+          <BottomNav />
         </div>
       </div>
     </div>

@@ -170,9 +170,13 @@ export const likePost = async (req, res) => {
         message: "Post not found",
       });
       return;
+
+    
     }
     const updatedPost = await post.update({
       likes: post.likes + 1,
+      //add user id to likes array
+
     });
     res.send(updatedPost);
   } catch (error) {
@@ -263,6 +267,7 @@ export const getPostsByUserName = async (req, res) => {
           userId: usr.id,
         },
         attributes: ["id", "content", "likes", "dislikes", "createdAt"],
+        order: [["createdAt", "DESC"]],
         include: [
           {
             model: User,
@@ -273,7 +278,6 @@ export const getPostsByUserName = async (req, res) => {
             as : "comments",
           }
         ],
-        order: ["createdAt"],
       });
       
       res.send({ posts: posts, user: usr });

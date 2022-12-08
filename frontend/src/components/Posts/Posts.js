@@ -4,7 +4,7 @@ import PostFrame from "./PostFrame";
 
 const Posts = ({ data }) => {
   return (
-    <div className="flex-col">
+    <div className="">
       {data.map((data) => (
         <PostFrame key={data.id} post={data} />
       ))}

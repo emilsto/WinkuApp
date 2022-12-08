@@ -25,41 +25,40 @@ const Signup = () => {
 
   //handle submit for the signup form
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  console.log(login);
-  // Check that login credentials have been entered
-  if (login.username === "" || login.password === "") {
-    setError("Please enter your username and password");
-    return;
-  }
-  // Check that the passwords match
-  if (login.password !== login.confirmPassword) {
-    setError("Passwords do not match");
-    return;
-  }
-
-  // Send the login data to the backend
-  try {
-    const response = await axios.post("/api/create", JSON.stringify(login), {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    });
-    console.log("res.data: ", response.data);
-      setSuccess(true);
-  } catch (error) {
-    if (error?.response?.status === 400) {
-      setError("Username and password are required!");
-    } else if (error?.response?.status === 401) {
-      setError("Username already exists");
-      console.log(error.response);
-    } else {
-      console.log(error);
-      setError("Whoops, something went wrong");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(login);
+    // Check that login credentials have been entered
+    if (login.username === "" || login.password === "") {
+      setError("Please enter your username and password");
+      return;
     }
-  }
-}
+    // Check that the passwords match
+    if (login.password !== login.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
+    // Send the login data to the backend
+    try {
+      const response = await axios.post("/api/create", JSON.stringify(login), {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+      console.log("res.data: ", response.data);
+      setSuccess(true);
+    } catch (error) {
+      if (error?.response?.status === 400) {
+        setError("Username and password are required!");
+      } else if (error?.response?.status === 401) {
+        setError("Username already exists");
+        console.log(error.response);
+      } else {
+        console.log(error);
+        setError("Whoops, something went wrong");
+      }
+    }
+  };
 
   return (
     <>

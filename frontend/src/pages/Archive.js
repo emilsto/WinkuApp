@@ -21,8 +21,8 @@ const Archive = () => {
   }, []);
 
   return (
-    <div className="flex flex-col py-8">
-      <p className="py-2">
+    <div className="flex flex-col md:py-8 py-0 ">
+      <p className="py-2 md:m-0 m-5">
         This is where all the cool posts go to die. Post epic, get pinned. Epic
         posts deserve EPIC rewards.
       </p>
