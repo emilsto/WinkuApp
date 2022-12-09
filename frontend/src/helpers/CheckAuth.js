@@ -25,19 +25,13 @@ const CheckAuth = () => {
           localStorage.setItem("token", token);
           setAuth({ token, user, isLogged: true });
         } catch (error) {
-          console.log(error);
-          if (error.response.status === 401) {
             localStorage.removeItem("token");
             setAuth({ token: null, user: null, isLogged: false });
           }
         }
+        checkToken();
       };
-      checkToken();
-    } else {
-      setAuth(null);
-    }
-    console.log("CheckAuth ran");
-  }, [setAuth]);
+    },  [setAuth]);
 };
 
 export default CheckAuth;

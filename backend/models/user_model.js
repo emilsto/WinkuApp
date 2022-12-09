@@ -41,6 +41,7 @@ const User = db.define(
   {
     scopes: {
       //default to not include password in the response
+      //this isn't working, need to figure out why
       default: {
         attributes: { exclude: ["password"] },
       },

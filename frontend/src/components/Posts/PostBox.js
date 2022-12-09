@@ -7,6 +7,14 @@ const PostBox = ({ user, addData, from }) => {
     content: "",
   });
 
+  //handle change for the post
+  const handleChange = (e) => {
+    setPost({
+      ...post,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   //text counter for the post
   const [count, setCount] = useState(140);
   const handleCount = (e) => {
@@ -27,15 +35,6 @@ const PostBox = ({ user, addData, from }) => {
       setCount(140);
     }
   };
-
-  //handle change for the post
-  const handleChange = (e) => {
-    setPost({
-      ...post,
-      [e.target.name]: e.target.value,
-    });
-  };
-
 
   return (
     <div className="border-x border-y border-slate-300 p-4">

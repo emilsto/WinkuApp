@@ -24,6 +24,7 @@ import ScrollToTop from "./helpers/ScrollToTop";
 import CheckAuth from "./helpers/CheckAuth";
 
 const App = () => {
+  //check if token exists in local storage
   CheckAuth();
   const location = useLocation();
 

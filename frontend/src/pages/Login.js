@@ -5,13 +5,14 @@ import { useHistory } from "react-router-dom";
 import LoginBox from "../components/Login/LoginBox";
 
 import AuthContext from "../context/AuthProvider";
+import  useAuth  from "../hooks/useAuth";
 import axios from "../api/axios";
 
 const LOGIN_URL = "/api/login";
 
 const Login = () => {
   //dont let the user see this page if they are already logged in
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
 
   //set up state for the login form
   const [login, setLogin] = useState({
@@ -50,9 +51,7 @@ const Login = () => {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
-      console.log("res.data: ", response.data);
       const token = response.data.token;
-      console.log("token: ", token);
       const user = response.data.user;
       localStorage.setItem("token", token);
       console.log(user);
