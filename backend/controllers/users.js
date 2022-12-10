@@ -111,14 +111,14 @@ export const loginUser = async (req, res) => {
   try {
     if (!req.body.username || !req.body.password) {
       const error = new Error("Username or password is missing");
-      error.status = 401;
+      error.status = 400;
       throw error;
     }
 
     //check if username exists
     const user = await User.findOne({ where: { username: req.body.username } });
     if (!user) {
-      const error = new Error("Username does not exist");
+      const error = new Error("Username or password is incorrect");
       error.status = 401;
       throw error;
     }
@@ -132,7 +132,7 @@ export const loginUser = async (req, res) => {
       user.password
     );
     if (!validPassword) {
-      const error = new Error("Password is incorrect");
+      const error = new Error("Username or password is incorrect");
       error.status = 401;
       throw error;
     }
