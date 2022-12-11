@@ -32,6 +32,7 @@
 - [X] See a user's profile
 - [X] See a user's posts
 - [ ] See a user's followers and following
+- [X] Responsive design for mobile
 
 ## What technologies does it use?
 
@@ -49,12 +50,12 @@
 
 ## ToDos
 
-- [ ] Secure backend routes
-- [ ] Refactor backend code
-- [ ] Add more features
-- [ ] Add tests
-- [ ] Add more documentation
-- [ ] responsive design for mobile
+- Secure backend routes
+- Refactor backend code
+- Add more features
+- Add tests
+- Add more documentation
+- <del> responsive design for mobile</del>
 
 ## What is the purpose of this project?
 
