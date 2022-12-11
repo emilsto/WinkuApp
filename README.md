@@ -32,7 +32,7 @@
 - [X] See a user's profile
 - [X] See a user's posts
 - [ ] See a user's followers and following
-- [ ] responsive design for mobile
+- [X] Responsive design for mobile
 
 ## What technologies does it use?
 
