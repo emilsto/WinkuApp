@@ -54,7 +54,7 @@
 - [ ] Add more features
 - [ ] Add tests
 - [ ] Add more documentation
-- [ ] responsive design for mobile
+- [x] responsive design for mobile
 
 ## What is the purpose of this project?
 
