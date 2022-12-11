@@ -9,7 +9,6 @@ import Signup from "./pages/Signup";
 import Logout from "./pages/Logout";
 import Profile from "./pages/Profile";
 import Thread from "./pages/Thread";
-import FourOhFour from "./pages/FourOhFour";
 
 //nav, footer, and other components
 import NavBar from "./components/Common/NavBar";
@@ -45,7 +44,6 @@ const App = () => {
               <Route path="/signup" component={Signup} />
               <Route path="/:username/:postId" component={Thread} />
               <Route path="/:username" component={Profile} />
-              <Route path="*" component={FourOhFour} />
             </Switch>
           </ScrollToTop>
           <Footer></Footer>

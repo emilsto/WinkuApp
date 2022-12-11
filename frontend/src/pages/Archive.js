@@ -4,13 +4,15 @@ import Posts from "../components/Posts/Posts";
 import PostSkeleton from "../components/Posts/PostSkeleton";
 import axios from "../api/axios";
 
+const EPIC_URL = "/api/posts/epic";
+
 const Archive = () => {
   //epic post dummy data
   const [data, setData] = useState([]);
   useEffect(() => {
     const getEpicPosts = async () => {
       try {
-        const res = await axios.get(`https://13.49.227.55:4000/api/posts/epic`);
+        const res = await axios.get(EPIC_URL);
         const data = res.data;
         setData(data);
       } catch (error) {
