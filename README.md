@@ -8,8 +8,8 @@
 
 ## How to try it?
 
-- First, head over to [https://ec2-13-49-227-55.eu-north-1.compute.amazonaws.com:4000/] to accept the self-signed certificate. (This is a temporary solution) You should see a "Hello World" message after accepting the certificate.
-- Second, head over to [https://winkuapp.web.app/](https://winkuapp.web.app/)
+- First, head over to [Here](https://ec2-13-49-227-55.eu-north-1.compute.amazonaws.com:4000/) to accept the self-signed certificate. (This is a temporary solution) You should see a "Hello World" message after accepting the certificate.
+- Second, head over to [WinkuApp](https://winkuapp.web.app/)
 
 ## How to run it?
 
